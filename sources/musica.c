@@ -6,5 +6,6 @@ struct tMusica
     char *nM;
     int popu;
     float dura_ms;
+    int eh_explic;
 };
 
