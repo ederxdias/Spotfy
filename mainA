@@ -1,7 +1,17 @@
-#make do git
-#comando para executar "make -f mainA"
+#push para o git da branch Alan
+
+#Para executar e deixar com o commit padrao digite "make -f pushA"
+#Para adicionar um commit diferente do padrao digite depois "m="commit aqui dentro""
+#Exemplo de comando com um commit diferente "make -f pushD m="commit diferente""
+
 BRANCH := Alan
-MENSAGEM := Alteracao
+override m += 
+
+ifeq ($(strip $(m)),)
+COMMIT := commit($(BRANCH))
+else
+COMMIT := $(m)
+endif
 
 all: push
 
@@ -9,7 +19,7 @@ push: commit
 	@git push origin $(BRANCH)
 
 commit: add
-	@git commit -m "$(MENSAGEM)"
+	@git commit -m "$(COMMIT)"
 	
 add:
 	@git add .
