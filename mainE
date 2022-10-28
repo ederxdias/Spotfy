@@ -1,6 +1,6 @@
 #make do git
-#comando para executar "make -f PmainA"
-BRANCH := Alan
+#comando para executar "make -f mainE"
+BRANCH := eder
 MENSAGEM := Alteracao
 
 all: push
