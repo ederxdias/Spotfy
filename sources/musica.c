@@ -11,5 +11,6 @@ struct tMusica
     int eh_explic;
     char artist;
     char **idA;
+    tData_pt dataL;
 };
 
