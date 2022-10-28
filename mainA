@@ -1,0 +1,15 @@
+#make do git
+#comando para executar "make -f mainA"
+BRANCH := Alan
+MENSAGEM := Alteracao
+
+all: push
+
+push: commit
+	@git push origin $(BRANCH)
+
+commit: add
+	@git commit -m "$(MENSAGEM)"
+	
+add:
+	@git add .
