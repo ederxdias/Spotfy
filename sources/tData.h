@@ -15,6 +15,8 @@ tData_pt AvancaUmDia(tData_pt data);
 
 int EhData1IgualData2(tData_pt data1, tData_pt data2);
 
+void LiberaData(tData_pt data);
+
 //Funcao para imprimir a data no terminal
 void ImprimeDataT(tData_pt data);
 
