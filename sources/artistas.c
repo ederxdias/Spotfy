@@ -7,7 +7,7 @@ struct tArtistas
     int tamVet;
 };
 
-tArtistas * IniciarArtistas(){
+tArtistas * CriarArtistas(){
     tArtistas *arts = malloc(sizeof(arts));
     if(arts == NULL){
         printf("Ponteiro Artistas NULL");
@@ -27,6 +27,7 @@ void AdicionarArtistas(tArtistas *arts, tArtista *art){
         arts->art = realloc(arts->art,sizeof(tArtista *)*arts->tamVet);     
     }
     arts->art[qtda-1] = art;
+    printf("%s\n", RetNa(arts->art[qtda-1]));
 }
 void LiberarArtistasStr(tArtistas *p){
     if(p != NULL)

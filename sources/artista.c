@@ -27,9 +27,11 @@ tArtista *CriarArtista(char *id, double seg, char *gen, char *nA, int popu){
     return art;
 }
 
-tArtista *LeArtista(FILE *arq, tArtista *art){
+tArtista *LeArtista(FILE *arq){
     char id[10000];
-    fscanf(arq,"%[^;];",id);
+    int fim_a = fscanf(arq,"%[^;];",id);
+    if(fim_a == EOF)
+        return NULL;
     double seg;
     fscanf(arq,"%lf;",&seg);
     char gen[10000];
@@ -58,4 +60,7 @@ void LiberaArtistaVet(tArtista *p){
     if (p->nA!=NULL){
         free(p->nA);
     }
+}
+char *RetNa(tArtista *a){
+    return a->nA;
 }
