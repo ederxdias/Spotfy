@@ -31,15 +31,15 @@ tArtista *LeArtista(FILE *arq, tArtista *art){
     char id[10000];
     fscanf(arq,"%[^;];",id);
     double seg;
-    fscanf(arq,"%f;",seg);
+    fscanf(arq,"%lf;",&seg);
     char gen[10000];
     fscanf(arq,"%[^;];",gen);
     char nA[10000]; 
     fscanf(arq,"%[^;];",nA);
     int popu;
-    fscanf(arq,"%d\n",popu);
-    tArtista *art = CriarArtista(id,seg,gen,nA,popu);
-    return art;
+    fscanf(arq,"%d\n",&popu);
+    tArtista *art1 = CriarArtista(id,seg,gen,nA,popu);
+    return art1;
 }
 
 void LiberarArtistaStr(tArtista *p){
@@ -47,10 +47,15 @@ void LiberarArtistaStr(tArtista *p){
         free(p);
 }
 void LiberaArtistaVet(tArtista *p){
-    if(p->id!=NULL)
+    if(p->id != NULL){
         free(p->id);
-    if(p->gen!=NULL);
+    }
+        
+    if(p->gen!=NULL){
         free(p->gen);
-    if (p->nA!=NULL)
+    }
+        
+    if (p->nA!=NULL){
         free(p->nA);
+    }
 }
