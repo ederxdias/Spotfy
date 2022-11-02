@@ -1,6 +1,7 @@
 #include "musica.h"
 #include "propiedades.h"
 #include "tData.h"
+#include "artistas.h"
 
 struct tMusica
 {
@@ -9,7 +10,7 @@ struct tMusica
     int popu;
     float dura_ms;
     int eh_explic;
-    char artist;
+    tArtistas *artista;
     char **idA;
     tData_pt dataL;
 };
