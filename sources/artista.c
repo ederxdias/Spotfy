@@ -10,24 +10,38 @@ struct tArtista
     int playP;
 };
 
-tArtista *IniciarArtista(){
-    tArtista *art = malloc(sizeof(art));
+tArtista *CriarArtista(char *id, double seg, char *gen, char *nA, int popu){
+    tArtista *art =(tArtista*) malloc(sizeof(*art));
     if(art == NULL){
         printf("Falha na alocação do ponteiro de artista");
         exit(-1);
     }
+    art->id = (char*)malloc(sizeof(char)*(strlen(id)+1));
+    strcpy(art->id, id);
+    art->seg = seg;
+    art->gen = (char*)malloc(sizeof(char)*(strlen(gen)+1));
+    strcpy(art->gen, gen);
+    art->nA = (char*)malloc(sizeof(char)*(strlen(nA)+1));
+    strcpy(art->nA, nA);
+    art->popu = popu;
     return art;
 }
 
-tArtista *LeArtista(FILE *arq, tArtista *art){
-    art->id = malloc(10000);
-    fscanf(arq,"%[^;];", art->id);
-    fscanf(arq,"%f;",art->seg);
-    art->gen = malloc(10000);
-    fscanf(arq,"%[^;];",art->gen);
-    art->nA = malloc(10000);
-    fscanf(arq,"%[^;];", art->nA);
-    fscanf(arq,"%d\n",art->popu);
+tArtista *LeArtista(FILE *arq){
+    char id[10000];
+    int fim_a = fscanf(arq,"%[^;];",id);
+    if(fim_a == EOF)
+        return NULL;
+    double seg;
+    fscanf(arq,"%lf;",&seg);
+    char gen[10000];
+    fscanf(arq,"%[^;];",gen);
+    char nA[10000]; 
+    fscanf(arq,"%[^;];",nA);
+    int popu;
+    fscanf(arq,"%d\n",&popu);
+    tArtista *art1 = CriarArtista(id,seg,gen,nA,popu);
+    return art1;
 }
 
 void LiberarArtistaStr(tArtista *p){
@@ -35,10 +49,18 @@ void LiberarArtistaStr(tArtista *p){
         free(p);
 }
 void LiberaArtistaVet(tArtista *p){
-    if(p->id!=NULL)
+    if(p->id != NULL){
         free(p->id);
-    if(p->gen!=NULL);
+    }
+        
+    if(p->gen!=NULL){
         free(p->gen);
-    if (p->nA!=NULL)
+    }
+        
+    if (p->nA!=NULL){
         free(p->nA);
+    }
+}
+char *RetNa(tArtista *a){
+    return a->nA;
 }
