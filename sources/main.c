@@ -12,7 +12,6 @@ int main(int argc, char *argv[]) {
 
     sprintf(edr, "./data_tests/%s", argv[1]);
     tArtistas *arts = ListarArtistas(edr);
-    printf("%p#\n", arts);
     return 0;
 }
 
