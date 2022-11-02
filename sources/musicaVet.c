@@ -35,5 +35,8 @@ tMusicaVet* LeMusicasDoArquivo(char* caminho) {
         exit(1);
     }
 
+    while(fscanf(f, "[^;];[^;];%d;")) {
+
+    }
 
 }
