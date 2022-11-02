@@ -1,14 +1,10 @@
-
-#include "artista.h"
 #include "artistas.h"
-#include <stdio.h>
-#include <stdlib.h>
-
 
 struct tArtistas
 {
     tArtista **art;
     int qtda;
+    int tamVet;
 };
 
 tArtistas * IniciarArtistas(){

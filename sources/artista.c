@@ -1,6 +1,4 @@
 #include "artista.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 struct tArtista
 {
