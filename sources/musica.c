@@ -32,7 +32,7 @@ tMusica *CriaMusica(char* id, char* nM, int popu, double duracao, int exp, tArti
 
     m->eh_explic = exp;
 
-    m->artista = art;
+    m->arts = art;
 
     m->nA = (char*)malloc(sizeof(char)*(strlen(nA)+1));
     strcpy(m->nA, nA);

@@ -11,4 +11,7 @@ void AdicionarArtistas(tArtistas *arts, tArtista *art);
 void LiberarArtistasStr(tArtistas *p);
 void LiberarArtistasVet(tArtistas *p);
 tArtistas *ListarArtistas(char *edr);
+tArtista * AcharStructArt(tArtistas *arts, char *id);
+int AcharIndexArt(tArtistas *arts, char *id);
+tArtista * RetornarStructArt(tArtistas *arts, int idx);
 #endif
