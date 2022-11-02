@@ -7,7 +7,7 @@ struct tMusica
     int popu;
     float dura_ms;
     int eh_explic;
-    tArtistas *artista; //Vetor de artistas que cantam a musica
+    char **arts; //Nome de artistas que cantam a musica
     int qtdA; //Quantidade de artistas que produziram a musica
     char **idA; //Id dos artistas que cantam a musica
     char *nA; //Nome dos artistas que cantam a musica
