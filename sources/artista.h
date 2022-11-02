@@ -12,6 +12,12 @@ tArtista *LeArtista(FILE *arq);
 void LiberarArtistaStr(tArtista *p);
 void LiberaArtistaVet(tArtista *p);
 char *RetNa(tArtista *a);
+char *RetNa(tArtista *a);
+char *RetId(tArtista *a);
+char *RetGen(tArtista *a);
+int RetPopu(tArtista *a);
+double RetSeg(tArtista *a);
+
 
 
 #endif
