@@ -10,5 +10,5 @@ tArtistas * CriarArtistas();
 void AdicionarArtistas(tArtistas *arts, tArtista *art);
 void LiberarArtistasStr(tArtistas *p);
 void LiberarArtistasVet(tArtistas *p);
-
+tArtistas *ListarArtistas(char *edr);
 #endif

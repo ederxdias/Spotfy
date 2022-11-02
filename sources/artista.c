@@ -2,13 +2,14 @@
 
 struct tArtista
 {
-    char *id;
-    double seg;
-    char *gen;
-    char *nA;
-    int popu;
+    char *id; // id do artista na base do Spotify.
+    double seg; // Número de seguidores.
+    char *gen; // Uma lista de generos associados ao artista.
+    char *nA; // Nome do artista.
+    int popu; // Popularidade do artista entre 0 e 100.
     int playP;
 };
+
 
 tArtista *CriarArtista(char *id, double seg, char *gen, char *nA, int popu){
     tArtista *art =(tArtista*) malloc(sizeof(*art));
@@ -63,4 +64,16 @@ void LiberaArtistaVet(tArtista *p){
 }
 char *RetNa(tArtista *a){
     return a->nA;
+}
+char *RetId(tArtista *a){
+    return a->id;
+}
+char *RetGen(tArtista *a){
+    return a->gen;
+}
+int RetPopu(tArtista *a){
+    return a->popu;
+}
+double RetSeg(tArtista *a){
+    return a->seg;
 }

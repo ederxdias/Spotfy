@@ -22,12 +22,17 @@ tArtistas * CriarArtistas(){
 void AdicionarArtistas(tArtistas *arts, tArtista *art){
     arts->qtda++;
     int qtda = arts->qtda;
-    if(qtda>4){
+    if(qtda>arts->tamVet){
         arts->tamVet= arts->tamVet*2;
         arts->art = realloc(arts->art,sizeof(tArtista *)*arts->tamVet);     
     }
     arts->art[qtda-1] = art;
-    printf("%s\n", RetNa(arts->art[qtda-1]));
+    
+    // printf("%s;", RetId(arts->art[qtda-1]));
+    // printf("%.1f;", RetSeg(arts->art[qtda-1]));
+    // printf("%s;", RetGen(arts->art[qtda-1]));
+    // printf("%s;", RetNa(arts->art[qtda-1]));
+    // printf("%d\n", RetPopu(arts->art[qtda-1]));
 }
 void LiberarArtistasStr(tArtistas *p){
     if(p != NULL)
@@ -39,3 +44,20 @@ void LiberarArtistasVet(tArtistas *p){
     }
 }
 
+tArtistas* ListarArtistas(char *edr){
+    FILE * test = fopen(edr,"r");
+    if (test == NULL)
+  {
+    printf("Erro abertura do arquivo!!");
+    exit(EXIT_FAILURE);
+  }
+    tArtistas *arts = CriarArtistas();
+    while(1){
+        tArtista *art = LeArtista(test);
+        if(art == NULL)
+            break;
+        AdicionarArtistas(arts, art);
+    }
+    fclose(test);
+    return arts;
+}
