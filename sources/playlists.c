@@ -40,3 +40,34 @@ void LiberarPlaylistVet(tPlaylists *p){
         free(p->play[i]);
     }
 }
+
+void salvarPlaylists(tPlaylist *p,FILE *fp)
+{
+    fp = fopen(ARQUIVO,"wb");
+
+  if (fp == NULL){
+      printf("Erro na abertura do arquivo\n");
+      exit(1);
+    }
+
+    //grava todos os cadastros do array pontos
+    fwrite(p, sizeof(*p), 1, fp);
+    fclose(fp);
+}
+
+tPlaylists *CarregarPlaylists(FILE *fp)
+{
+    fp = fopen(ARQUIVO,"rb");
+
+  if (fp == NULL){
+      printf("Erro na abertura do arquivo\n");
+      exit(1);
+    }
+
+   tPlaylists *p= malloc(sizeof *p);
+
+   long t = fread(p, sizeof *p, 1, fp);
+
+   return p;  
+}
+
