@@ -18,21 +18,20 @@ tArtista *CriarArtista(char *id, double seg, char *gen, char *nA, int popu){
         exit(-1);
     }
     art->id = (char*)malloc(sizeof(char)*(strlen(id)+1));
-    strcpy(art->id, id);
+    strncpy(art->id, id, strlen(id));
     art->seg = seg;
     art->gen = (char*)malloc(sizeof(char)*(strlen(gen)+1));
-    strcpy(art->gen, gen);
+    strncpy(art->gen, gen, strlen(gen));
     art->nA = (char*)malloc(sizeof(char)*(strlen(nA)+1));
-    strcpy(art->nA, nA);
+    strncpy(art->nA, nA, strlen(nA));
     art->popu = popu;
     return art;
 }
 
+
 tArtista *LeArtista(FILE *arq){
     char id[10000];
     int fim_a = fscanf(arq,"%[^;];",id);
-    if(fim_a == EOF)
-        return NULL;
     double seg;
     fscanf(arq,"%lf;",&seg);
     char gen[10000];
@@ -45,11 +44,7 @@ tArtista *LeArtista(FILE *arq){
     return art1;
 }
 
-void LiberarArtistaStr(tArtista *p){
-    if(p != NULL)
-        free(p);
-}
-void LiberaArtistaVet(tArtista *p){
+void LiberaArtista(tArtista *p){
     if(p->id != NULL){
         free(p->id);
     }
@@ -61,6 +56,9 @@ void LiberaArtistaVet(tArtista *p){
     if (p->nA!=NULL){
         free(p->nA);
     }
+    if(p != NULL){
+        free(p);
+    } 
 }
 char *RetNa(tArtista *a){
     return a->nA;

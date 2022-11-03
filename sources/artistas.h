@@ -8,9 +8,8 @@
 typedef struct tArtistas tArtistas;
 tArtistas * CriarArtistas();
 void AdicionarArtistas(tArtistas *arts, tArtista *art);
-void LiberarArtistasStr(tArtistas *p);
-void LiberarArtistasVet(tArtistas *p);
-tArtistas *ListarArtistas(char *edr);
+void LiberarArtistas(tArtistas *p);
+tArtistas *ListarArtistas(char *caminho);
 tArtista * AcharStructArt(tArtistas *arts, char *id);
 int AcharIndexArt(tArtistas *arts, char *id);
 tArtista * RetornarStructArt(tArtistas *arts, int idx);

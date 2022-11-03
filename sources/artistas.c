@@ -14,7 +14,7 @@ tArtistas * CriarArtistas(){
         exit(-1);
     }
     arts->qtda=0;
-    arts->tamVet = 4;
+    arts->tamVet = 5;
     arts->art = malloc(sizeof(tArtista **)*arts->tamVet);
     return arts;
 }
@@ -34,33 +34,36 @@ void AdicionarArtistas(tArtistas *arts, tArtista *art){
     // printf("%s;", RetNa(arts->art[qtda-1]));
     // printf("%d\n", RetPopu(arts->art[qtda-1]));
 }
-void LiberarArtistasStr(tArtistas *p){
+
+void LiberarArtistas(tArtistas *p){
+    for(int i=0; i < p->qtda; i++){
+        LiberaArtista(p->art[i]);
+    }
+    free(p->art);
     if(p != NULL)
         free(p);
 }
-void LiberarArtistasVet(tArtistas *p){
-    for(int i=0; i < p->qtda; i++){
-        free(p->art[i]);
-    }
-}
 
-tArtistas* ListarArtistas(char *edr){
-    FILE * test = fopen(edr,"r");
-    if (test == NULL)
+tArtistas* ListarArtistas(char *caminho){
+    FILE * fa = fopen(caminho,"r");
+    if (fa == NULL)
   {
     printf("Erro abertura do arquivo!!");
     exit(EXIT_FAILURE);
   }
     tArtistas *arts = CriarArtistas();
-    while(1){
-        tArtista *art = LeArtista(test);
-        if(art == NULL)
-            break;
+    tArtista *art;
+    while(!feof(fa)){
+         art = LeArtista(fa);
+        if (art == NULL){
+            printf("ALocação de ponteiro de artista do arquivo falhou");
+        }
         AdicionarArtistas(arts, art);
     }
-    fclose(test);
+    fclose(fa);
     return arts;
 }
+
 
 int AcharIndexArt(tArtistas *arts, char *id){
 
