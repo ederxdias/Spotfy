@@ -1,11 +1,11 @@
 #include "playlist.h"
 
 struct tPlaylist{
-    tMusica **mscs;
+    int  *muscs;// vetor com indices das musicas
     int qtdM;
     int tamVet;
     char nome*;
-    char idxp;
+    char idxp; // index da playlist
 };
 
 tPlaylist *CriarPlaylist(){
@@ -18,30 +18,29 @@ tPlaylist *CriarPlaylist(){
     }
     play->qtdM =0;
     play->tamVet= 4;
-    play->mscs = (tMusica **) malloc(sizeof(tMusica **)*play->tamVet);
+    play->mscs = (int *) malloc(sizeof(int)*play->tamVet);
     return play;
 }
 
-void AdicionarMusicas(tPlaylist *play, tMusica *msc){
+void AdicionarMusicas(tPlaylist *play, int idx_msc){
        play->qtdM++;
     int qtdM = play->qtdM;
-    if(qtdM>play->tamVet){
+    if(qtdM >play->tamVet){
         play->tamVet= play->tamVet*2;
-        play->mscs = realloc(play->mscs,sizeof(tMusica **)*play->tamVet);     
+        play->mscs =(int *) realloc(play->mscs,sizeof(int)*play->tamVet);     
     }
-    play->mscs[qtdM-1] = msc;
+    play->mscs[qtdM-1] = indx_msc;
 }
 
-void AdicionarIndxP(tPlaylist *play, idxp){
+void AdicionarIndxP(tPlaylist *play, int idxp){
     play->idxp = idxp;
 }
-void LiberarPlaylistStr(tPlaylist *p){
-    if(p != NULL)
-        free(p);
-}
-void LiberarMusicastVet(tPlaylist *p){
+
+void LiberarPlaylist(tPlaylist *p){
     for(int i=0; i < p->qtdp; i++){
         free(p->mscs[i]);
     }
+    if(p != NULL)
+        free(p);
 }
 
