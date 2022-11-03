@@ -1,7 +1,7 @@
 #include "musica.h"
 
 #define LINHAS_MAX 32
-#define QTD_CHARS_MAX 2000
+#define QTD_CHARS_MAX 512
 
 struct tMusica
 {
@@ -10,17 +10,16 @@ struct tMusica
     int popu;
     int dura_ms;
     int eh_explic;
-    tArtistas* artistas; //Vetor dos artistas que cantam a musica
     int qtdA; //Quantidade de artistas que produziram a musica
     char **idA; //Id dos artistas que cantam a musica
     char **nA; //Nome dos artistas que cantam a musica
-    tData_pt dataL; //Data de lancamento
+    char *dataL; //Data de lancamento
     tPropiedades* prop; //Propriedades da musica
     int qtdPlay; //Quantidade de playlist que pertence
 };
 
-tMusica *CriaMusica(char* id, char* nM, int popu, int duracao, int exp, tArtistas* art, int qtdA, char** nA, char **idA, 
-                    tData_pt dataL, tPropiedades* p,  int qtdPlay) {
+tMusica *CriaMusica(char* id, char* nM, int popu, int duracao, int exp, int qtdA, char** nA, char **idA, 
+                    char *dataL, tPropiedades* p,  int qtdPlay) {
     
     tMusica *m = (tMusica*)malloc(sizeof(*m));
     int i = 0;
@@ -36,8 +35,6 @@ tMusica *CriaMusica(char* id, char* nM, int popu, int duracao, int exp, tArtista
     m->dura_ms = duracao;
 
     m->eh_explic = exp;
-
-    m->artistas = art;
 
     m->qtdA = qtdA;
 
@@ -55,7 +52,8 @@ tMusica *CriaMusica(char* id, char* nM, int popu, int duracao, int exp, tArtista
         strncpy(m->idA[i], idA[i], strlen(idA[i]));
     }
 
-    m->dataL = dataL;
+    m->dataL = (char*)malloc(sizeof(char)*strlen(dataL)+1);
+    strncpy(m->dataL, dataL, strlen(dataL));
 
     m->prop = p;
 
@@ -78,10 +76,9 @@ void LiberaMusica(tMusica *m) {
 
     free(m->nA);
     free(m->idA);
+    free(m->dataL);
 
     LiberaPropiedades(&m->prop);
-
-    LiberaData(m->dataL);
 
     free(m);
 }
@@ -92,16 +89,14 @@ tMusica* LeMusicaDoArquivo(FILE * f) {
         exit(1);
     }
 
-    char id[100], nM[10000], **nA, **idA;
+    char id[100], nM[10000], **nA, **idA, data[20];
     char test = 'F';
-    int popu, exp, dia, mes, ano, duracao;
+    int popu, exp, duracao;
     int time_signature, mode, key, i = 0, qtdArt = 0;
     double danceability, energy, speechiness, acousticness;
     double instrumentalness, liveness, valence, loudness, tempo;
     tPropiedades* p;
-    tData_pt data;
     tMusica* musica = NULL;
-    tArtistas* a = NULL;
 
     if(fscanf(f, "%[^;];%[^;];%d;%d;%d;", id, nM, &popu, &duracao, &exp) == 5){
         i = 0;
@@ -122,7 +117,7 @@ tMusica* LeMusicaDoArquivo(FILE * f) {
         qtdArt = i+1;
 
         //Lendo data da musica
-        if(fscanf(f, "%d-%d-%d;", &ano, &mes, &dia) != 3){
+        if(fscanf(f, "%[^;];", data) != 1){
             printf("Erro de leitura da data da musica!\n");
             exit(1);
         }
@@ -133,13 +128,11 @@ tMusica* LeMusicaDoArquivo(FILE * f) {
             printf("Erro de leitura das propriedades da musica!\n");
             exit(1);
         }
-        
-        data = CriaData(dia, mes, ano);
 
         p = CriaPropriedades(danceability, energy, speechiness, acousticness, instrumentalness, key, 
                              liveness, valence, loudness, tempo, time_signature, mode);
 
-        musica = CriaMusica(id, nM, popu, duracao, exp, a, qtdArt, nA, idA, data, p, 0);
+        musica = CriaMusica(id, nM, popu, duracao, exp, qtdArt, nA, idA, data, p, 0);
 
         LiberaMatrizDeChar(nA, LINHAS_MAX, QTD_CHARS_MAX);
         LiberaMatrizDeChar(idA, LINHAS_MAX, QTD_CHARS_MAX);
