@@ -12,4 +12,10 @@ tMusica *CriaMusica(char* id, char* nM, int popu, int duracao, int exp, tArtista
 
 void LiberaMusica(tMusica *m);
 
+tMusica* LeMusicaDoArquivo(FILE * f);
+
+char** CriaUmaMatrizDeChar(int qtdLinha, int qtdChars);
+
+void LiberaMatrizDeChar(char **m, int qtdLinha, int qtdChars);
+
 #endif
