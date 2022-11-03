@@ -31,14 +31,16 @@ void AdicionarPlaylist(tPlaylists *plays, tPlaylist *play){
     plays->play[qtdp-1] = play;
 }
 
-void LiberarPlaylistsStr(tPlaylists *p){
-    if(p != NULL)
-        free(p);
-}
-void LiberarPlaylistVet(tPlaylists *p){
+
+void LiberarPlaylists(tPlaylists *p){
     for(int i=0; i < p->qtdp; i++){
         free(p->play[i]);
     }
+    free(p->play);
+    if(p != NULL){
+        free(p);
+    }
+        
 }
 
 void salvarPlaylists(tPlaylist *p,FILE *fp)

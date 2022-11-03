@@ -6,6 +6,5 @@
 typedef struct tPlaylists tPlaylists;
 tPlaylist *CriarListaPlay();
 void AdicionarPlaylist(tPlaylists *plays, tPlaylist *play);
-void LiberarPlaylistsStr(tPlaylists *p);
-void LiberarPlaylistVet(tPlaylists *p);
+void LiberarPlaylists(tPlaylists *p);
 #endif

@@ -8,16 +8,18 @@ struct tArtistas
 };
 
 tArtistas * CriarArtistas(){
-    tArtistas *arts = malloc(sizeof(arts));
+    tArtistas *arts = malloc(sizeof(*arts));
     if(arts == NULL){
         printf("Ponteiro Artistas NULL");
         exit(-1);
     }
     arts->qtda=0;
     arts->tamVet = 5;
-    arts->art = malloc(sizeof(tArtista **)*arts->tamVet);
+    arts->art =(tArtista *) malloc(sizeof(tArtista *)*arts->tamVet);
     return arts;
 }
+
+
 
 void AdicionarArtistas(tArtistas *arts, tArtista *art){
     arts->qtda++;

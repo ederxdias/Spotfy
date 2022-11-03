@@ -4,7 +4,7 @@ struct tPlaylist{
     int  *muscs;// vetor com indices das musicas
     int qtdM; // quantidade de musicas
     int tamVet; // tamanho do vetor musicas,ele é atualizado com realloc
-    char nome*; // nome da playlist
+    char *nome; // nome da playlist
     char idxp; // index da playlist
 };
 
