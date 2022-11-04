@@ -33,10 +33,9 @@ tMusicaVet* LeMusicasDoArquivo(char* caminho) {
     while(!feof(f)) {
         musica = LeMusicaDoArquivo(f);
 
-        if(musica == NULL)
-            break;
+        if(musica != NULL)
+            AdicionaMusicaAoVetMusicas(v, musica);
 
-        AdicionaMusicaAoVetMusicas(v, musica);
     }
 
     fclose(f);
