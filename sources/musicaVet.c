@@ -17,7 +17,7 @@ tMusicaVet* InicializaVetorMusicas() {
     return v;
 }
 
-tMusicaVet* LeMusicasDoArquivo(char* caminho) {
+tMusicaVet* LeMusicasDoArquivo(char* caminho, tArtistas *arts) {
    tMusicaVet* v = InicializaVetorMusicas();
     tMusica* musica = NULL;
 
@@ -32,6 +32,7 @@ tMusicaVet* LeMusicasDoArquivo(char* caminho) {
 
     while(!feof(f)) {
         musica = LeMusicaDoArquivo(f);
+        AdicionarArtistasDaMusica(musica,arts);
 
         if(musica != NULL)
             AdicionaMusicaAoVetMusicas(v, musica);

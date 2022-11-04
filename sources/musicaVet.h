@@ -7,7 +7,7 @@ typedef struct tMusicaVet tMusicaVet;
 
 tMusicaVet* InicializaVetorMusicas();
 
-tMusicaVet* LeMusicasDoArquivo(char* caminho);
+tMusicaVet* LeMusicasDoArquivo(char* caminho, tArtistas *arts);
 
 void AdicionaMusicaAoVetMusicas(tMusicaVet *v, tMusica* m);
 

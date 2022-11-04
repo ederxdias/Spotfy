@@ -1,7 +1,7 @@
 #include "playlist.h"
 
 struct tPlaylist{
-    int  *muscs;// vetor com indices das musicas
+    int  *mscs;// vetor com indices das musicas
     int qtdM; // quantidade de musicas
     int tamVet; // tamanho do vetor musicas,ele é atualizado com realloc
     char *nome; // nome da playlist
@@ -10,7 +10,7 @@ struct tPlaylist{
 
 tPlaylist *CriarPlaylist(){
     char nome[100];
-    scanf("%s", nome);//pensar em como pegar o nome
+    scanf("%s", nome);//pensar em como pegar o nome e armazena-lo
     tPlaylist *play = (tPlaylist *) malloc(sizeof(*play));
     if(play == NULL){
         printf("ALocação de ponteiro da playlist falhou");
@@ -29,7 +29,7 @@ void AdicionarMusicas(tPlaylist *play, int idx_msc){
         play->tamVet= play->tamVet*2;
         play->mscs =(int *) realloc(play->mscs,sizeof(int)*play->tamVet);     
     }
-    play->mscs[qtdM-1] = indx_msc;
+    play->mscs[qtdM-1] = idx_msc;
 }
 
 void AdicionarIndxP(tPlaylist *play, int idxp){
@@ -37,10 +37,7 @@ void AdicionarIndxP(tPlaylist *play, int idxp){
 }
 
 void LiberarPlaylist(tPlaylist *p){
-    for(int i=0; i < p->qtdp; i++){
-        free(p->mscs[i]);
-    }
     if(p != NULL)
-        free(p);
+        free(p->mscs);
 }
 
