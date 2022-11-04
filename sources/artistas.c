@@ -15,7 +15,7 @@ tArtistas * CriarArtistas(){
     }
     arts->qtda=0;
     arts->tamVet = 5;
-    arts->art =(tArtista *) malloc(sizeof(tArtista *)*arts->tamVet);
+    arts->art =(tArtista **) malloc(sizeof(tArtista *)*arts->tamVet);
     return arts;
 }
 
@@ -78,5 +78,9 @@ int AcharIndexArt(tArtistas *arts, char *id){
 }
 tArtista * RetornarStructArt(tArtistas *arts, int idx){
     return arts->art[idx];
+}
+
+void MudarArtista(tArtistas *arts, tArtista *art, int idx){
+    arts->art[idx] = art;
 }
 

@@ -16,6 +16,7 @@ struct tMusica
     char *dataL; //Data de lancamento
     tPropiedades* prop; //Propriedades da musica
     int qtdPlay; //Quantidade de playlist que pertence
+    tArtistas *arts_msc;// Array dos artistas que produziram a musica
 };
 
 tMusica *CriaMusica(char* id, char* nM, int popu, int duracao, int exp, int qtdA, char** nA, char **idA, 
@@ -51,6 +52,8 @@ tMusica *CriaMusica(char* id, char* nM, int popu, int duracao, int exp, int qtdA
         m->idA[i] = (char*)malloc(sizeof(char)*(strlen(idA[i]) + 1));
         strncpy(m->idA[i], idA[i], strlen(idA[i]));
     }
+    //Alocando a struct de vetor dos artistas;
+    m->arts_msc = (tArtistas *) malloc(sizeof(tArtistas *));
 
     m->dataL = (char*)malloc(sizeof(char)*strlen(dataL)+1);
     strncpy(m->dataL, dataL, strlen(dataL));
@@ -77,6 +80,7 @@ void LiberaMusica(tMusica *m) {
     free(m->nA);
     free(m->idA);
     free(m->dataL);
+    free(m->arts_msc);
 
     LiberaPropiedades(&m->prop);
 
@@ -136,6 +140,7 @@ tMusica* LeMusicaDoArquivo(FILE * f) {
 
         LiberaMatrizDeChar(nA, LINHAS_MAX, QTD_CHARS_MAX);
         LiberaMatrizDeChar(idA, LINHAS_MAX, QTD_CHARS_MAX);
+       
 
         return musica;
     }
@@ -164,4 +169,13 @@ void LiberaMatrizDeChar(char **m, int qtdLinha, int qtdChars) {
     }
 
     free(m);
+}
+
+void AdicionarArtistasDaMusica(tMusica *msc, tArtistas *arts){
+    msc->arts_msc = CriarArtistas();
+    int idx;
+    for(int i=0; i<msc->qtdA; i++){
+        idx = AcharIndexArt(arts,msc->idA[i]);
+        MudarArtista(msc->arts_msc,RetornarStructArt(arts,idx),i);
+    }
 }

@@ -6,6 +6,6 @@
 typedef struct tPlaylist tPlaylist;
 tPlaylist *CriarPlaylist();
 void AdicionarMusicas(tPlaylist *play, int idx_msc);
-void AdicionarIndxP(tPlaylist *play, int idxp)
+void AdicionarIndxP(tPlaylist *play, int idxp);
 void LiberarPlaylist(tPlaylist *p);
 #endif

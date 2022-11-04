@@ -1,4 +1,4 @@
-#include "playlist.h"
+#include "playlists.h"
 
 struct tPlaylists
 {
@@ -7,8 +7,8 @@ struct tPlaylists
     int qtdp;
 };
 
-tPlaylist *CriarListaPlay(){
-    tPlaylists *list_play = (tPlaylists *) malloc(sizeof(*lista_play));
+tPlaylists *CriarListaPlay(){
+    tPlaylists *list_play = (tPlaylists *) malloc(sizeof(*list_play));
     if(list_play == NULL){
         printf("ALocação de ponteiro da lista de playlist falhou");
         exit(-1);
@@ -25,51 +25,21 @@ void AdicionarPlaylist(tPlaylists *plays, tPlaylist *play){
     int qtdp = plays->qtdp;
     if(qtdp>plays->tamVet){
         plays->tamVet= plays->tamVet*2;
-        plays->play = realloc(palys->play,sizeof(tPlaylist **)*plays->tamVet);     
+        plays->play = realloc(plays->play,sizeof(tPlaylist **)*plays->tamVet);     
     }
-    AdicionarIdxP(play, qtdp-1);
+    AdicionarIndxP(play, qtdp-1);
     plays->play[qtdp-1] = play;
 }
 
 
 void LiberarPlaylists(tPlaylists *p){
     for(int i=0; i < p->qtdp; i++){
-        free(p->play[i]);
+        LiberarPlaylist(p->play[i]);
     }
     free(p->play);
     if(p != NULL){
         free(p);
     }
         
-}
-
-void salvarPlaylists(tPlaylist *p,FILE *fp)
-{
-    fp = fopen(ARQUIVO,"wb");
-
-  if (fp == NULL){
-      printf("Erro na abertura do arquivo\n");
-      exit(1);
-    }
-
-    //grava todos os cadastros do array pontos
-    fwrite(p, sizeof(*p), 1, fp);
-    fclose(fp);
-}
-
-tPlaylists *CarregarPlaylists(FILE *fp)
-{
-    fp = fopen(ARQUIVO,"rb");
-
-  if (fp == NULL){
-      printf("Erro na abertura do arquivo\n");
-      exit(1);
-    }
-
-   tPlaylists *p= malloc(sizeof *p);
-
-   long t = fread(p, sizeof *p, 1, fp);
-
-   return p;  
 }
 

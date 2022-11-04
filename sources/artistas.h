@@ -13,4 +13,5 @@ tArtistas *ListarArtistas(char *caminho);
 tArtista * AcharStructArt(tArtistas *arts, char *id);
 int AcharIndexArt(tArtistas *arts, char *id);
 tArtista * RetornarStructArt(tArtistas *arts, int idx);
+void MudarArtista(tArtistas *arts, tArtista *art, int idx);
 #endif
