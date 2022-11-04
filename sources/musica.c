@@ -1,6 +1,6 @@
 #include "musica.h"
 
-#define LINHAS_MAX 32
+#define LINHAS_MAX 128
 #define QTD_CHARS_MAX 512
 
 struct tMusica
