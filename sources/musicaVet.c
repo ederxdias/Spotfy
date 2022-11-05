@@ -31,17 +31,11 @@ tMusicaVet* LeMusicasDoArquivo(char* caminho, tArtistas *arts) {
     }
     while(!feof(f)) {
         musica = LeMusicaDoArquivo(f);
-        
-
 
         if(musica != NULL){
             AdicionarArtistasDaMusica(musica,arts);
             AdicionaMusicaAoVetMusicas(v, musica);
-       
-        }
-            
-        
-        
+        } 
 
     }
       
