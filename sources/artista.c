@@ -75,3 +75,10 @@ int RetPopu(tArtista *a){
 double RetSeg(tArtista *a){
     return a->seg;
 }
+void ImprimirArtista(tArtista *art){
+    printf("%s;", art->id);
+    printf("%.1f;", art->seg);
+    printf("%s;",art->gen);
+    printf("%s;", art->nA);
+    printf("%d\n", art->popu);
+}

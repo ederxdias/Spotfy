@@ -16,7 +16,7 @@ char *RetId(tArtista *a);
 char *RetGen(tArtista *a);
 int RetPopu(tArtista *a);
 double RetSeg(tArtista *a);
-
+void ImprimirArtista(tArtista *art);
 
 
 #endif

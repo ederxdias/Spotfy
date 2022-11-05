@@ -29,18 +29,24 @@ tMusicaVet* LeMusicasDoArquivo(char* caminho, tArtistas *arts) {
         printf("Erro ao abrir arquivo: %s\n", caminho);
         exit(1);
     }
-
     while(!feof(f)) {
         musica = LeMusicaDoArquivo(f);
-        AdicionarArtistasDaMusica(musica,arts);
+        
 
-        if(musica != NULL)
+
+        if(musica != NULL){
+            AdicionarArtistasDaMusica(musica,arts);
             AdicionaMusicaAoVetMusicas(v, musica);
+       
+        }
+            
+        
+        
 
     }
-
+      
     fclose(f);
-
+ 
     return v;
 }
 

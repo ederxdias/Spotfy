@@ -14,7 +14,7 @@ tArtistas * CriarArtistas(){
         exit(-1);
     }
     arts->qtda=0;
-    arts->tamVet = 5;
+    arts->tamVet = 15;
     arts->art =(tArtista **) malloc(sizeof(tArtista *)*arts->tamVet);
     return arts;
 }
@@ -29,12 +29,12 @@ void AdicionarArtistas(tArtistas *arts, tArtista *art){
         arts->art = realloc(arts->art,sizeof(tArtista **)*arts->tamVet);     
     }
     arts->art[qtda-1] = art;
-    
     // printf("%s;", RetId(arts->art[qtda-1]));
-    // printf("%.1f;", RetSeg(arts->art[qtda-1]));
-    // printf("%s;", RetGen(arts->art[qtda-1]));
-    // printf("%s;", RetNa(arts->art[qtda-1]));
-    // printf("%d\n", RetPopu(arts->art[qtda-1]));
+//     printf("%.1f;", RetSeg(arts->art[qtda-1]));
+//     printf("%s;", RetGen(arts->art[qtda-1]));
+//     printf("%s;", RetNa(arts->art[qtda-1]));
+//     printf("%d\n", RetPopu(arts->art[qtda-1]));
+  
 }
 
 void LiberarArtistas(tArtistas *p){
@@ -68,12 +68,14 @@ tArtistas* ListarArtistas(char *caminho){
 
 
 int AcharIndexArt(tArtistas *arts, char *id){
-
-    for(int i=0;i<arts->tamVet;i++){
+    // printf("\n#%s#\n",id);
+    for(int i=0;i<arts->qtda;i++){
         if(strcmp(id,RetId(arts->art[i])) == 0){
+            // printf("#%s#",id);
             return i;
         }
     }
+    //  printf("\n\nNão existe tal artista\n\n");
     return 0;
 }
 tArtista * RetornarStructArt(tArtistas *arts, int idx){
@@ -84,3 +86,18 @@ void MudarArtista(tArtistas *arts, tArtista *art, int idx){
     arts->art[idx] = art;
 }
 
+void ImprimirArtista1(tArtistas *arts, int idx){
+    ImprimirArtista(arts->art[idx]);
+}
+
+void AdicionarQtdArt(tArtistas *arts, int qtd){
+    arts->qtda = qtd;
+}
+void RealocarArtistas(tArtistas *arts, int qtdA){
+    arts->art = realloc(arts->art,sizeof(tArtista**)*qtdA);
+}
+void LiberarVetorArts(tArtistas *arts){
+   
+    free(arts->art);
+    
+}

@@ -75,14 +75,14 @@ void LiberaMusica(tMusica *m) {
     for(i = 0; i < m->qtdA; i++) {
         free(m->nA[i]);
         free(m->idA[i]);
-    }
 
+    }
+    LiberarVetorArts(m->arts_msc);
+    free(m->arts_msc);
     free(m->nA);
     free(m->idA);
     free(m->dataL);
-    free(m->arts_msc);
-
-    LiberaPropiedades(&m->prop);
+    LiberaPropiedades(m->prop);
 
     free(m);
 }
@@ -140,7 +140,6 @@ tMusica* LeMusicaDoArquivo(FILE * f) {
 
         LiberaMatrizDeChar(nA, LINHAS_MAX, QTD_CHARS_MAX);
         LiberaMatrizDeChar(idA, LINHAS_MAX, QTD_CHARS_MAX);
-       
 
         return musica;
     }
@@ -173,9 +172,15 @@ void LiberaMatrizDeChar(char **m, int qtdLinha, int qtdChars) {
 
 void AdicionarArtistasDaMusica(tMusica *msc, tArtistas *arts){
     msc->arts_msc = CriarArtistas();
+    // Deixa o vetor de artistas dentro da musica do tamanho do numero de artistas
+     AdicionarQtdArt(msc->arts_msc,msc->qtdA);
     int idx;
+    static int cont =0;
     for(int i=0; i<msc->qtdA; i++){
         idx = AcharIndexArt(arts,msc->idA[i]);
         MudarArtista(msc->arts_msc,RetornarStructArt(arts,idx),i);
+        // ImprimirArtista1(msc->arts_msc, i);
     }
+    cont++;
+    // printf("\n#%d#\n",cont);
 }

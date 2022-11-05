@@ -37,9 +37,9 @@ tPropiedades* CriaPropriedades(double dance, double energy, double speech, doubl
     return p;
 }
 
-void LiberaPropiedades(tPropiedades** p) {
+void LiberaPropiedades(tPropiedades* p) {
     if(p != NULL){
-        free(*p);
-        *p = NULL;
+        free(p);
+        p = NULL;
     }
 }
