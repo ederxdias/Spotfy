@@ -17,6 +17,7 @@ tMusica* LeMusicaDoArquivo(FILE * f);
 char** CriaUmaMatrizDeChar(int qtdLinha, int qtdChars);
 
 void LiberaMatrizDeChar(char **m, int qtdLinha, int qtdChars);
+
 void AdicionarArtistasDaMusica(tMusica *msc, tArtistas *arts);
 
 #endif
