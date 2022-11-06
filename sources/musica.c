@@ -127,7 +127,7 @@ tMusica* LeMusicaDoArquivo(FILE * f) {
         }
 
         //Lendo propriedades da musica
-        if(fscanf(f, "%lf;%lf;%d;%lf;%d;%lf;%lf;%lf;%lf;%lf;%lf;%d", &danceability, &energy, &key,&loudness, &mode, &speechiness, 
+        if(fscanf(f, "%lf;%lf;%d;%lf;%d;%lf;%lf;%lf;%lf;%lf;%lf;%d\n\r", &danceability, &energy, &key,&loudness, &mode, &speechiness, 
            &acousticness, &instrumentalness, &liveness, &valence, &tempo, &time_signature) != 12){
             printf("Erro de leitura das propriedades da musica!\n");
             exit(1);
