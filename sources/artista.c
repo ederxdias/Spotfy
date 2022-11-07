@@ -30,8 +30,8 @@ tArtista *CriarArtista(char *id, double seg, char *gen, char *nA, int popu){
 
 
 tArtista *LeArtista(FILE *arq){
-    char id[10000];
-    int fim_a = fscanf(arq,"%[^;];",id);
+    char id[100];
+    fscanf(arq,"%[^;];",id);
     double seg;
     fscanf(arq,"%lf;",&seg);
     char gen[10000];
@@ -44,41 +44,55 @@ tArtista *LeArtista(FILE *arq){
     return art1;
 }
 
-void LiberaArtista(tArtista *p){
-    if(p->id != NULL){
-        free(p->id);
-    }
+void LiberaArtista(tArtista **p){
+    if(*p != NULL){
+        if((*p)->id != NULL){
+            free((*p)->id);
+            (*p)->id = NULL;
+        }
         
-    if(p->gen!=NULL){
-        free(p->gen);
-    }
+        if((*p)->gen != NULL){
+            free((*p)->gen);
+            (*p)->gen = NULL;
+        }
         
-    if (p->nA!=NULL){
-        free(p->nA);
-    }
-    if(p != NULL){
-        free(p);
+        if ((*p)->nA != NULL){
+            free((*p)->nA);
+            (*p)->nA = NULL;
+        }
+
+        free(*p);
+        *p = NULL;
     } 
 }
 char *RetNa(tArtista *a){
     return a->nA;
 }
+
 char *RetId(tArtista *a){
     return a->id;
 }
+
 char *RetGen(tArtista *a){
     return a->gen;
 }
+
 int RetPopu(tArtista *a){
     return a->popu;
 }
+
 double RetSeg(tArtista *a){
     return a->seg;
 }
+
 void ImprimirArtista(tArtista *art){
     printf("%s;", art->id);
     printf("%.1f;", art->seg);
     printf("%s;",art->gen);
     printf("%s;", art->nA);
     printf("%d\n", art->popu);
+}
+
+void IncrementaQtdPlaylistArtista(tArtista *art) {
+    art->playP++;
 }

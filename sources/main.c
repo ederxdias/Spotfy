@@ -12,11 +12,17 @@ int main(int argc, char *argv[]) {
     }
 
     sprintf(edr, "./data_tests/%s", argv[1]);
+
     tArtistas *arts = ListarArtistas(edr);
+
     sprintf(edr,"./data_tests/%s", argv[2]);
+
     tMusicaVet *mscs = LeMusicasDoArquivo(edr,arts);
-    LiberaVetorMusicas(mscs);
-    LiberarArtistas(arts);
+
+    LiberaVetorMusicas(&mscs);
+
+    LiberarArtistas(&arts);
+
     return 0;
 }
 

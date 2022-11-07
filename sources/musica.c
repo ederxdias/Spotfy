@@ -15,7 +15,7 @@ struct tMusica
     char **nA; //Nome dos artistas que cantam a musica
     char *dataL; //Data de lancamento
     tPropiedades* prop; //Propriedades da musica
-    int qtdPlay; //Quantidade de playlist que pertence
+    int qtdPlay; //Quantidade de playlist que musica pertence
     tArtistas *arts_msc;// Array dos artistas que produziram a musica
 };
 
@@ -65,26 +65,42 @@ tMusica *CriaMusica(char* id, char* nM, int popu, int duracao, int exp, int qtdA
     return m;
 }
 
-void LiberaMusica(tMusica *m) {
+void LiberaMusica(tMusica **m) {
     int i = 0;
 
-    free(m->id);
+    if(*m != NULL){
+        free((*m)->id);
+        (*m)->id = NULL;
 
-    free(m->nM);
+        free((*m)->nM);
+        (*m)->nM = NULL;
 
-    for(i = 0; i < m->qtdA; i++) {
-        free(m->nA[i]);
-        free(m->idA[i]);
+        for(i = 0; i < (*m)->qtdA; i++) {
+            free((*m)->nA[i]);
+            (*m)->nA[i] = NULL;
+            free((*m)->idA[i]);
+            (*m)->idA[i] = NULL;
+        }
 
+        LiberarVetorArts(&(*m)->arts_msc);
+
+        free((*m)->arts_msc);
+        (*m)->arts_msc = NULL;
+        
+        free((*m)->nA);
+        (*m)->nA =NULL;
+        
+        free((*m)->idA);
+        (*m)->idA = NULL;
+        
+        free((*m)->dataL);
+        (*m)->dataL = NULL;
+        
+        LiberaPropiedades(&(*m)->prop);
+
+        free(*m);
+        *m = NULL;
     }
-    LiberarVetorArts(m->arts_msc);
-    free(m->arts_msc);
-    free(m->nA);
-    free(m->idA);
-    free(m->dataL);
-    LiberaPropiedades(m->prop);
-
-    free(m);
 }
 
 tMusica* LeMusicaDoArquivo(FILE * f) {
@@ -173,9 +189,12 @@ void LiberaMatrizDeChar(char **m, int qtdLinha, int qtdChars) {
 void AdicionarArtistasDaMusica(tMusica *msc, tArtistas *arts){
     msc->arts_msc = CriarArtistas();
     // Deixa o vetor de artistas dentro da musica do tamanho do numero de artistas
-     AdicionarQtdArt(msc->arts_msc,msc->qtdA);
+    AdicionarQtdArt(msc->arts_msc,msc->qtdA);
+    
     int idx;
-    static int cont =0;
+
+    static int cont = 0;
+
     for(int i=0; i<msc->qtdA; i++){
         idx = AcharIndexArt(arts,msc->idA[i]);
         MudarArtista(msc->arts_msc,RetornarStructArt(arts,idx),i);
@@ -183,4 +202,16 @@ void AdicionarArtistasDaMusica(tMusica *msc, tArtistas *arts){
     }
     cont++;
     // printf("\n#%d#\n",cont);
+}
+
+char *RetIdM(tMusica *msc) {
+    return msc->nM;
+}
+
+int RetQtdArtsM(tMusica *msc) {
+    return msc->qtdA;
+}
+
+void IncrementaQtdPlaylistMusica(tMusica *msc) {
+    msc->qtdPlay++;
 }
