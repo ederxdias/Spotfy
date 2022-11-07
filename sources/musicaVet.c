@@ -54,13 +54,18 @@ void AdicionaMusicaAoVetMusicas(tMusicaVet *v, tMusica* m) {
     v->qtdM++;
 }
 
-void LiberaVetorMusicas(tMusicaVet *vet){
+void LiberaVetorMusicas(tMusicaVet **vet){
     int i = 0;
 
-    for(i = 0; i < vet->qtdM; i++) {
-        LiberaMusica(vet->musicas[i]);
-    }
-    free(vet->musicas);
+    if(*vet != NULL){
+        for(i = 0; i < (*vet)->qtdM; i++) {
+            LiberaMusica(&(*vet)->musicas[i]);
+        }
+        
+        free((*vet)->musicas);
+        (*vet)->musicas = NULL;
 
-    free(vet);
+        free(*vet);
+        *vet = NULL;
+    }
 }
