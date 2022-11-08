@@ -43,3 +43,20 @@ void LiberaPropiedades(tPropiedades** p) {
         *p = NULL;
     }
 }
+void ImprimirPropiedades(tPropiedades *p){
+    printf("danceability: [%.1f] ", p->danceability);
+    printf("energy: [%.1f] ", p->energy);
+    printf("key: [%d]", p->key);
+    printf("loudness: %.2f db ", p->loudness);
+    printf("mode: %d ", p->mode);
+    printf("\n");
+    printf("speechiness: [%.1f]  ", p->speechiness);
+    printf("acousticness: [%.1f]  ", p->acousticness);
+    printf("instrumentalness: [%.1f]  ", p->instrumentalness);
+    printf("liveness: [%.1f]  ", p->liveness);
+    printf("valence: [%1.f]  ", p->valence);
+    printf("\n");
+    printf("tempo: %.2f BPM  ", p->tempo);
+    printf("Time_signature: %d", p->time_signature);
+    printf("\n");
+}

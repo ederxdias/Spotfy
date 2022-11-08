@@ -17,6 +17,7 @@ struct tMusica
     tPropiedades* prop; //Propriedades da musica
     int qtdPlay; //Quantidade de playlist que musica pertence
     tArtistas *arts_msc;// Array dos artistas que produziram a musica
+    int idx_msc;//Indice da Musica no vetor das Musicas
 };
 
 tMusica *CriaMusica(char* id, char* nM, int popu, int duracao, int exp, int qtdA, char** nA, char **idA, 
@@ -157,6 +158,10 @@ tMusica* LeMusicaDoArquivo(FILE * f) {
 
         LiberaMatrizDeChar(nA, LINHAS_MAX, QTD_CHARS_MAX);
         LiberaMatrizDeChar(idA, LINHAS_MAX, QTD_CHARS_MAX);
+        //Colocar o indice da musica do vetor de musicas
+        static int cont = 0;
+        musica->idx_msc = cont;
+        cont++;
 
         return musica;
     }
@@ -187,7 +192,7 @@ void LiberaMatrizDeChar(char **m, int qtdLinha, int qtdChars) {
 
     free(m);
 }
-
+// Prencher A estruct Musica com as structs dos artistas que produziram a musica
 void AdicionarArtistasDaMusica(tMusica *msc, tArtistas *arts){
     msc->arts_msc = CriarArtistas();
     // Deixa o vetor de artistas dentro da musica do tamanho do numero de artistas
@@ -195,15 +200,21 @@ void AdicionarArtistasDaMusica(tMusica *msc, tArtistas *arts){
     
     int idx;
 
-    static int cont = 0;
+    // static int cont = 0;
 
     for(int i=0; i<msc->qtdA; i++){
         idx = AcharIndexArt(arts,msc->idA[i]);
+        // Há casos em que o indice do artista procurado não existe;
+        if(idx==-1){
+            msc->qtdA--;
+            AdicionarQtdArt(msc->arts_msc,msc->qtdA);
+            continue;
+        }         
+        // Coloca o ponteiro da struct artista no vetor de artistas dentro da musica
         MudarArtista(msc->arts_msc,RetornarStructArt(arts,idx),i);
         // ImprimirArtista1(msc->arts_msc, i);
     }
-    cont++;
-    // printf("\n#%d#\n",cont);
+    // cont++;
 }
 
 char *RetIdM(tMusica *msc) {
@@ -217,3 +228,34 @@ int RetQtdArtsM(tMusica *msc) {
 void IncrementaQtdPlaylistMusica(tMusica *msc) {
     msc->qtdPlay++;
 }
+
+void ImprimirMusica(tMusica *msc){
+    printf("Id: %s  \n", msc->id);
+    printf("Nome: %s  ", msc->nM);
+    printf("Popularity: %d  ", msc->popu);
+    printf("Duracao_ms: %d  ", msc->dura_ms);
+    printf("\nExplicit: %d  ", msc->eh_explic);
+    printf("Artists:");
+    for(int i=0; i<msc->qtdA;i++){
+        printf("%s ", msc->nA[i]);
+    }
+    printf("Id_Artistas: ");
+    for(int i=0; i<msc->qtdA;i++){
+        printf("%s ", msc->idA[i]);
+    }
+    printf("\nData de Lançamento: %s", msc->dataL);
+    ImprimirPropiedades(msc->prop);
+    printf("\nDados dos Artistas:\n");
+    for(int i=0; i<msc->qtdA;i++){
+        ImprimirArtistas(msc->arts_msc,i);
+    }
+}
+
+// id: id spotify da track
+// nome: nome da música
+// popularity: Popularidade da música entre 0 e 100
+// duracao_ms: Duração da música em ms
+// explicit: Se contem conteudo explicito ou não
+// artists: Listas de artistas que criaram a musica
+// id_artists: id dos artistas que criaram a música
+// data de lançamento

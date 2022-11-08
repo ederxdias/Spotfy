@@ -10,5 +10,6 @@ tPropiedades* CriaPropriedades(double dance, double energy, double speech, doubl
                                double live, double vale, double loud, double temp, int time_s, int mode);
 
 void LiberaPropiedades(tPropiedades** p);
+void ImprimirPropiedades(tPropiedades *p);
 
 #endif

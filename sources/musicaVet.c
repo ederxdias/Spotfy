@@ -69,3 +69,8 @@ void LiberaVetorMusicas(tMusicaVet **vet){
         *vet = NULL;
     }
 }
+
+void ListarMusica(tMusicaVet *mscs, int idx){
+    
+    ImprimirMusica(mscs->musicas[idx]);
+}

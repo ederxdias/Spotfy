@@ -12,5 +12,6 @@ tMusicaVet* LeMusicasDoArquivo(char* caminho, tArtistas *arts);
 void AdicionaMusicaAoVetMusicas(tMusicaVet *v, tMusica* m);
 
 void LiberaVetorMusicas(tMusicaVet **vet);
+void ListarMusica(tMusicaVet *mscs, int idx);
 
 #endif

@@ -23,7 +23,7 @@ tArtista * RetornarStructArt(tArtistas *arts, int idx);
 
 void MudarArtista(tArtistas *arts, tArtista *art, int idx);
 
-void ImprimirArtista1(tArtistas *arts, int idx);
+void ImprimirArtistas(tArtistas *arts, int idx);
 
 void AdicionarQtdArt(tArtistas *arts, int qtd);
 

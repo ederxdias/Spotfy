@@ -18,6 +18,7 @@ int main(int argc, char *argv[]) {
     sprintf(edr,"./data_tests/%s", argv[2]);
 
     tMusicaVet *mscs = LeMusicasDoArquivo(edr,arts);
+    ListarMusica(mscs,3);
 
     LiberaVetorMusicas(&mscs);
 

@@ -76,14 +76,11 @@ tArtistas* ListarArtistas(char *caminho){
 
 
 int AcharIndexArt(tArtistas *arts, char *id){
-    // printf("\n#%s#\n",id);
     for(int i=0;i<arts->qtda;i++){
         if(strcmp(id,RetId(arts->art[i])) == 0){
-            // printf("#%s#",id);
             return i;
         }
     }
-    //  printf("\n\nNão existe tal artista\n\n");
     return -1;
 }
 
@@ -95,7 +92,7 @@ void MudarArtista(tArtistas *arts, tArtista *art, int idx){
     arts->art[idx] = art;
 }
 
-void ImprimirArtista1(tArtistas *arts, int idx){
+void ImprimirArtistas(tArtistas *arts, int idx){
     ImprimirArtista(arts->art[idx]);
 }
 
