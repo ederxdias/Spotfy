@@ -138,15 +138,16 @@ tMusica* LeMusicaDoArquivo(FILE * f) {
 
         //Lendo data da musica
         if(fscanf(f, "%[^;];", data) != 1){
-            printf("Erro de leitura da data da musica!\n");
-            exit(1);
+            fscanf(f, "%*[^\n]\n\r");
+            return NULL;
         }
 
         //Lendo propriedades da musica
         if(fscanf(f, "%lf;%lf;%d;%lf;%d;%lf;%lf;%lf;%lf;%lf;%lf;%d\n\r", &danceability, &energy, &key,&loudness, &mode, &speechiness, 
            &acousticness, &instrumentalness, &liveness, &valence, &tempo, &time_signature) != 12){
-            printf("Erro de leitura das propriedades da musica!\n");
-            exit(1);
+            fscanf(f, "%*[^\n]\n\r");
+            
+            return NULL;
         }
 
         p = CriaPropriedades(danceability, energy, speechiness, acousticness, instrumentalness, key, 
@@ -159,6 +160,7 @@ tMusica* LeMusicaDoArquivo(FILE * f) {
 
         return musica;
     }
+    fscanf(f, "%*[^\n]\n\r");
 
     return NULL;
 }
