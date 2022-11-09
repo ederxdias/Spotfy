@@ -216,11 +216,11 @@ void AdicionarArtistasDaMusica(tMusica *msc, tArtistas *arts){
     }
     // cont++;
 }
-
+// Retorna o Id da Musica
 char *RetIdM(tMusica *msc) {
-    return msc->nM;
+    return msc->id;
 }
-
+// Retorna o Quantidade de Artistas da musica
 int RetQtdArtsM(tMusica *msc) {
     return msc->qtdA;
 }
@@ -250,7 +250,20 @@ void ImprimirMusica(tMusica *msc){
         ImprimirArtistas(msc->arts_msc,i);
     }
 }
-
+// Retorna o nome da Musica
+char *RetornarNomeMusic(tMusica *msc){
+    return msc->nM;
+}
+// Retorna o Indice da musica no vetor de musicas
+int RetIndDaMusic(tMusica *msc){
+    return msc->idx_msc;
+}
+//Imprimir Os nomes dos Artistas
+char *ImpriNomArtsMusi(tMusica *msc){
+    for(int i=0; i<msc->qtdA;i++){
+        printf("%s\n", msc->nA[i]);
+    }
+}
 // id: id spotify da track
 // nome: nome da música
 // popularity: Popularidade da música entre 0 e 100

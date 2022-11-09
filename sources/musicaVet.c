@@ -74,3 +74,25 @@ void ListarMusica(tMusicaVet *mscs, int idx){
     
     ImprimirMusica(mscs->musicas[idx]);
 }
+void BuscarMusicas(tMusicaVet *mscs){
+    printf("Por favor digite o nome da musica pedida?:\n");
+    char nome[100];
+    scanf("%s", nome);
+    int n = strlen(nome);
+    char inter[200];
+    inter[0]= '\0';
+    for(int i=0;i<mscs->qtdM;i++){
+        inter = strncat(inter,RetornarNomeMusic(mscs->musicas[i]) ,n);
+        if(strcmp(nome,inter)==0){
+            printf("Indice da musica:%d\n",RetIdM(mscs->musicas[i]));
+            printf("Id da musica:%s\n", RetIdM(mscs->musicas[i]));
+            printf("Titulo da musica\n", RetornarNomeMusic(mscs->musicas[i]));
+            printf("Nomes dos Artistas:\n ");
+            ImpriNomArtsMusi(mscs->musicas[i]);
+        }
+    }
+
+}
+// Para cada música, devem ser informados o índice da música no
+// vetor, o id da música (e.g., "1HXdv1z9RlvrcUernyf0MY"), 
+// o título da música e os nomes dos artistas.

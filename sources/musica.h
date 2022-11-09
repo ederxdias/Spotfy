@@ -26,4 +26,9 @@ int RetQtdArtsM(tMusica *msc);
 void IncrementaQtdPlaylistMusica(tMusica *msc);
 void ImprimirMusica(tMusica *msc);
 
+char *RetornarNomeMusic(tMusica *msc);
+char *ImpriNomArtsMusi(tMusica *msc);
+int RetIndDaMusic(tMusica *msc);
+char *RetornarNomeMusic(tMusica *msc);
+
 #endif
