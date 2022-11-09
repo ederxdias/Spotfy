@@ -17,6 +17,7 @@ struct tMusica
     tPropiedades* prop; //Propriedades da musica
     int qtdPlay; //Quantidade de playlist que musica pertence
     tArtista* *arts_msc;// Array dos artistas que produziram a musica
+    int idx_msc // Indice da Musica no Array de musicas
 };
 
 tMusica *CriaMusica(char* id, char* nM, int popu, int duracao, int exp, int qtdA, char** nA, char **idA, 
@@ -155,6 +156,9 @@ tMusica* LeMusicaDoArquivo(FILE * f) {
 
         LiberaMatrizDeChar(nA, LINHAS_MAX, QTD_CHARS_MAX);
         LiberaMatrizDeChar(idA, LINHAS_MAX, QTD_CHARS_MAX);
+        static int cont =0;
+        musica->idx_msc= cont;
+        cont++;
 
         return musica;
     }

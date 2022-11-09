@@ -5,7 +5,6 @@
 
 
 int main(int argc, char *argv[]) {
-    /*
     char edr[1000];
     if (argc <= 2) {
        printf("Favor informar o diretorio! de entrada\n");
@@ -14,11 +13,12 @@ int main(int argc, char *argv[]) {
 
     sprintf(edr, "./data_tests/%s", argv[1]);
     sprintf(edr,"./data_tests/%s", argv[2]);
-    */
-
+   
     tArtistas *arts = ListarArtistas("data_tests/artists_2.csv");
 
-    tMusicaVet *mscs = LeMusicasDoArquivo("data_tests/tracks_2.csv",arts);
+    tMusicaVet *mscs = LeMusicasDoArquivo("data_tests/tracks_5.csv",arts);
+    BuscarMusicas(mscs);
+    
     ListarMusica(mscs,3);
 
     tPlaylist* play = CriarPlaylist("Play Teste");
