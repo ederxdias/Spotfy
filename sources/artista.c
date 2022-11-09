@@ -17,12 +17,12 @@ tArtista *CriarArtista(char *id, double seg, char *gen, char *nA, int popu){
         printf("Falha na alocação do ponteiro de artista");
         exit(-1);
     }
-    art->id = (char*)malloc(sizeof(char)*(strlen(id)+1));
+    art->id = (char*)calloc((strlen(id)+1), sizeof(char));
     strncpy(art->id, id, strlen(id));
     art->seg = seg;
-    art->gen = (char*)malloc(sizeof(char)*(strlen(gen)+1));
+    art->gen = (char*)calloc((strlen(gen)+1), sizeof(char));
     strncpy(art->gen, gen, strlen(gen));
-    art->nA = (char*)malloc(sizeof(char)*(strlen(nA)+1));
+    art->nA = (char*)calloc((strlen(nA)+1), sizeof(char));
     strncpy(art->nA, nA, strlen(nA));
     art->popu = popu;
     return art;
@@ -86,11 +86,11 @@ double RetSeg(tArtista *a){
 }
 
 void ImprimirArtista(tArtista *art){
-    printf("%s;", art->id);
-    printf("%.1f;", art->seg);
-    printf("%s;",art->gen);
-    printf("%s;", art->nA);
-    printf("%d\n", art->popu);
+    printf("Nome: %s | ", art->nA);
+    printf("Id: %s | ", art->id);
+    printf("Seguidores: %.0lf | ", art->seg);
+    printf("Popularidade: %d\n", art->popu);
+    printf("Generos: %s\n",art->gen);
 }
 
 void IncrementaQtdPlaylistArtista(tArtista *art) {

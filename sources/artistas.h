@@ -19,7 +19,7 @@ tArtista * AcharStructArt(tArtistas *arts, char *id);
 
 int AcharIndexArt(tArtistas *arts, char *id);
 
-tArtista * RetornarStructArt(tArtistas *arts, int idx);
+tArtista * RetornarArtistaPonteiro(tArtistas *arts, int idx);
 
 void MudarArtista(tArtistas *arts, tArtista *art, int idx);
 

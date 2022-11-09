@@ -16,20 +16,19 @@ struct tMusica
     char *dataL; //Data de lancamento
     tPropiedades* prop; //Propriedades da musica
     int qtdPlay; //Quantidade de playlist que musica pertence
-    tArtistas *arts_msc;// Array dos artistas que produziram a musica
-    int idx_msc;//Indice da Musica no vetor das Musicas
+    tArtista* *arts_msc;// Array dos artistas que produziram a musica
 };
 
 tMusica *CriaMusica(char* id, char* nM, int popu, int duracao, int exp, int qtdA, char** nA, char **idA, 
                     char *dataL, tPropiedades* p,  int qtdPlay) {
     
-    tMusica *m = (tMusica*)malloc(sizeof(*m));
+    tMusica *m = (tMusica*)calloc(1, (sizeof(*m)));
     int i = 0;
 
-    m->id = (char*)malloc(sizeof(char)*(strlen(id) + 1));
+    m->id = (char*)calloc((strlen(id) + 1), sizeof(char));
     strncpy(m->id, id, strlen(id));
 
-    m->nM = (char*)malloc(sizeof(char)*(strlen(nM) + 1));
+    m->nM = (char*)calloc((strlen(nM) + 1), sizeof(char));
     strncpy(m->nM, nM, strlen(nM));
 
     m->popu = popu;
@@ -43,20 +42,20 @@ tMusica *CriaMusica(char* id, char* nM, int popu, int duracao, int exp, int qtdA
     //Alocando o vetor com o nome dos artistas
     m->nA = (char**)malloc(sizeof(char*)*qtdA);
     for(i = 0; i < qtdA; i++){
-        m->nA[i] = (char*)malloc(sizeof(char)*(strlen(nA[i]) + 1));
-        strncpy(m->nA[i], idA[i], strlen(nA[i]));
+        m->nA[i] = (char*)calloc((strlen(nA[i]) + 1), sizeof(char));
+        strncpy(m->nA[i], nA[i], strlen(nA[i]));
     }
 
     //Alocando o vetor com os ids dos artistas
     m->idA = (char**)malloc(sizeof(char*)*qtdA);
     for(i = 0; i < qtdA; i++){
-        m->idA[i] = (char*)malloc(sizeof(char)*(strlen(idA[i]) + 1));
+        m->idA[i] = (char*)calloc((strlen(idA[i]) + 1), sizeof(char));
         strncpy(m->idA[i], idA[i], strlen(idA[i]));
     }
     //Alocando a struct de vetor dos artistas;
-    m->arts_msc = (tArtistas *) malloc(sizeof(tArtistas *));
+    m->arts_msc = (tArtista**)calloc(m->qtdA, sizeof(tArtista*));
 
-    m->dataL = (char*)malloc(sizeof(char)*strlen(dataL)+1);
+    m->dataL = (char*)calloc((strlen(dataL)+1), sizeof(char));
     strncpy(m->dataL, dataL, strlen(dataL));
 
     m->prop = p;
@@ -82,8 +81,6 @@ void LiberaMusica(tMusica **m) {
             free((*m)->idA[i]);
             (*m)->idA[i] = NULL;
         }
-
-        LiberarVetorArts(&(*m)->arts_msc);
 
         free((*m)->arts_msc);
         (*m)->arts_msc = NULL;
@@ -158,10 +155,6 @@ tMusica* LeMusicaDoArquivo(FILE * f) {
 
         LiberaMatrizDeChar(nA, LINHAS_MAX, QTD_CHARS_MAX);
         LiberaMatrizDeChar(idA, LINHAS_MAX, QTD_CHARS_MAX);
-        //Colocar o indice da musica do vetor de musicas
-        static int cont = 0;
-        musica->idx_msc = cont;
-        cont++;
 
         return musica;
     }
@@ -194,27 +187,18 @@ void LiberaMatrizDeChar(char **m, int qtdLinha, int qtdChars) {
 }
 // Prencher A estruct Musica com as structs dos artistas que produziram a musica
 void AdicionarArtistasDaMusica(tMusica *msc, tArtistas *arts){
-    msc->arts_msc = CriarArtistas();
-    // Deixa o vetor de artistas dentro da musica do tamanho do numero de artistas
-    AdicionarQtdArt(msc->arts_msc,msc->qtdA);
-    
-    int idx;
+    int i = 0, idx = 0;
 
-    // static int cont = 0;
-
-    for(int i=0; i<msc->qtdA; i++){
+    for(i = 0; i < msc->qtdA; i++){
         idx = AcharIndexArt(arts,msc->idA[i]);
         // Há casos em que o indice do artista procurado não existe;
-        if(idx==-1){
-            msc->qtdA--;
-            AdicionarQtdArt(msc->arts_msc,msc->qtdA);
-            continue;
-        }         
-        // Coloca o ponteiro da struct artista no vetor de artistas dentro da musica
-        MudarArtista(msc->arts_msc,RetornarStructArt(arts,idx),i);
-        // ImprimirArtista1(msc->arts_msc, i);
+        if(idx == -1){
+            msc->arts_msc[i] = NULL;
+        }
+        else{
+            msc->arts_msc[i] = RetornarArtistaPonteiro(arts, idx);
+        }
     }
-    // cont++;
 }
 
 char *RetIdM(tMusica *msc) {
@@ -225,29 +209,40 @@ int RetQtdArtsM(tMusica *msc) {
     return msc->qtdA;
 }
 
-void IncrementaQtdPlaylistMusica(tMusica *msc) {
+void ConfiguraMusicaNaPlaylist(tMusica *msc) {
+    int i = 0;
+
+    for(i = 0; i < msc->qtdA; i++){
+        if(msc->arts_msc[i] != NULL){
+            IncrementaQtdPlaylistArtista(msc->arts_msc[i]);
+        }
+    }
     msc->qtdPlay++;
 }
 
 void ImprimirMusica(tMusica *msc){
-    printf("Id: %s  \n", msc->id);
+    int i = 0;
+    printf("Informações da Música: \n");
     printf("Nome: %s  ", msc->nM);
-    printf("Popularity: %d  ", msc->popu);
-    printf("Duracao_ms: %d  ", msc->dura_ms);
-    printf("\nExplicit: %d  ", msc->eh_explic);
-    printf("Artists:");
-    for(int i=0; i<msc->qtdA;i++){
-        printf("%s ", msc->nA[i]);
-    }
-    printf("Id_Artistas: ");
-    for(int i=0; i<msc->qtdA;i++){
-        printf("%s ", msc->idA[i]);
-    }
-    printf("\nData de Lançamento: %s", msc->dataL);
+    printf(" Id: %s\n", msc->id);
+    printf("Data de Lançamento: %s  ", msc->dataL);
+    printf("\tPopularity: %d\n", msc->popu);
+    printf("\nMais Informações Sobre a Música: \n");
+    printf("Duracao em ms: %d |", msc->dura_ms);
+    printf(" Explicit: %d  | ", msc->eh_explic);
     ImprimirPropiedades(msc->prop);
-    printf("\nDados dos Artistas:\n");
-    for(int i=0; i<msc->qtdA;i++){
-        ImprimirArtistas(msc->arts_msc,i);
+    printf("\nArtistas que Produziram a Música:\n");
+    for(i = 0; i < msc->qtdA;i++){
+        printf("\nArtista %d:\n", i + 1);
+        printf("Nome: %s | ", msc->nA[i]);
+        printf("Id: %s \n", msc->idA[i]);
+
+        printf("\nMais informações sobre o artista:\n");
+        if(msc->arts_msc[i] != NULL){
+            ImprimirArtista(msc->arts_msc[i]);
+        }else{
+            printf("Mais informações não foram encontradas sobre esse artista.\n");
+        }
     }
 }
 

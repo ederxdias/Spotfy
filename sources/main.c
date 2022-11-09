@@ -1,28 +1,42 @@
 
 #include "artistas.h"
 #include "musicaVet.h"
-
+#include "playlists.h"
 
 
 int main(int argc, char *argv[]) {
+    /*
     char edr[1000];
-    if (argc <= 1) {
-        printf("Favor informar o diretorio! de entrada\n");
+    if (argc <= 2) {
+       printf("Favor informar o diretorio! de entrada\n");
         return 1;
     }
 
     sprintf(edr, "./data_tests/%s", argv[1]);
-
-    tArtistas *arts = ListarArtistas(edr);
-
     sprintf(edr,"./data_tests/%s", argv[2]);
+    */
 
-    tMusicaVet *mscs = LeMusicasDoArquivo(edr,arts);
+    tArtistas *arts = ListarArtistas("data_tests/artists_2.csv");
+
+    tMusicaVet *mscs = LeMusicasDoArquivo("data_tests/tracks_2.csv",arts);
     ListarMusica(mscs,3);
 
-    LiberaVetorMusicas(&mscs);
+    tPlaylist* play = CriarPlaylist("Play Teste");
+    AdicionarMusicaPlaylist(play, mscs, 3);
 
+    tPlaylists* listaPlay = CriarListaPlay();
+
+    AdicionarPlaylist(listaPlay, play);
+
+    LiberaVetorMusicas(&mscs);
     LiberarArtistas(&arts);
+
+    SalvarPlaylistsEmBinario(listaPlay, "playTeste.bin");
+    LiberarPlaylists(&listaPlay);
+
+    listaPlay = CarregarPlaylistsDeBinario("playTeste.bin");
+
+    LiberarPlaylists(&listaPlay);
 
     return 0;
 }

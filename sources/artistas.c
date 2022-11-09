@@ -84,7 +84,7 @@ int AcharIndexArt(tArtistas *arts, char *id){
     return -1;
 }
 
-tArtista * RetornarStructArt(tArtistas *arts, int idx){
+tArtista * RetornarArtistaPonteiro(tArtistas *arts, int idx){
     return arts->art[idx];
 }
 
