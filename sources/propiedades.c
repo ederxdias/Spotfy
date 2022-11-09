@@ -44,19 +44,18 @@ void LiberaPropiedades(tPropiedades** p) {
     }
 }
 void ImprimirPropiedades(tPropiedades *p){
-    printf("danceability: [%.1f] ", p->danceability);
-    printf("energy: [%.1f] ", p->energy);
-    printf("key: [%d]", p->key);
-    printf("loudness: %.2f db ", p->loudness);
-    printf("mode: %d ", p->mode);
+    printf("Danceability: [%.2lf] | ", p->danceability);
+    printf("Energy: [%.2lf] | ", p->energy);
+    printf("Key: [%d]\n", p->key);
+    printf("Loudness: %.2lf db | ", p->loudness);
+    printf("Mode: %d | ", p->mode);
+    printf("Speechiness: [%.2lf] | ", p->speechiness);
+    printf("Acousticness: [%.2lf]\n", p->acousticness);
+    printf("Instrumentalness: [%.2lf] | ", p->instrumentalness);
+    printf("Liveness: [%.2lf] | ", p->liveness);
+    printf("Valence: [%1.2lf]", p->valence);
     printf("\n");
-    printf("speechiness: [%.1f]  ", p->speechiness);
-    printf("acousticness: [%.1f]  ", p->acousticness);
-    printf("instrumentalness: [%.1f]  ", p->instrumentalness);
-    printf("liveness: [%.1f]  ", p->liveness);
-    printf("valence: [%1.f]  ", p->valence);
-    printf("\n");
-    printf("tempo: %.2f BPM  ", p->tempo);
+    printf("Tempo: %.2lf BPM | ", p->tempo);
     printf("Time_signature: %d", p->time_signature);
     printf("\n");
 }

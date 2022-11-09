@@ -7,7 +7,7 @@ typedef struct tPlaylist tPlaylist;
 
 tPlaylist *CriarPlaylist(char* nomePlay);
 
-void AdicionarMusicas(tPlaylist *play, int idx_msc);
+void AdicionarMusicaPlaylist(tPlaylist *play, tMusicaVet* mscs, int idx_msc);
 
 void LiberarPlaylist(tPlaylist **p);
 

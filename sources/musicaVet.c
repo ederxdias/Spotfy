@@ -74,3 +74,11 @@ void ListarMusica(tMusicaVet *mscs, int idx){
     
     ImprimirMusica(mscs->musicas[idx]);
 }
+
+tMusica* RetMusicaIdx(tMusicaVet *mscs, int idx) {
+    if(idx >= mscs->qtdM){
+        printf("Indice maior que a lista de musicas.\n");
+        return NULL;
+    }
+    return mscs->musicas[idx];
+}

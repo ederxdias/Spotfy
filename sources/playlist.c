@@ -25,11 +25,14 @@ tPlaylist *CriarPlaylist(char* nomePlay){
     return play;
 }
 
-void AdicionarMusicas(tPlaylist *play, int idx_msc){
+void AdicionarMusicaPlaylist(tPlaylist *play, tMusicaVet* mscs, int idx_msc){
     if(play->qtdM >= play->tamVet){
         play->tamVet= play->tamVet*2;
         play->mscs =(int *) realloc(play->mscs,sizeof(int)*play->tamVet);     
     }
+
+    ConfiguraMusicaNaPlaylist(RetMusicaIdx(mscs, idx_msc));
+
     play->mscs[play->qtdM] = idx_msc;
     play->qtdM++;
 }
