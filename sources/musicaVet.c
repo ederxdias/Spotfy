@@ -26,7 +26,7 @@ tMusicaVet* LeMusicasDoArquivo(char* caminho, tArtistas *arts) {
     f = fopen(caminho, "r");
 
     if(f == NULL){
-        printf("Erro ao abrir arquivo: %s\n", caminho);
+        printf("Erro ao abrir arquivo: %s\n\n", caminho);
         exit(1);
     }
     while(!feof(f)) {
@@ -114,8 +114,15 @@ void BuscarMusicasPeloNome(tMusicaVet *mscs, char *busca){
     }
 
     if(!eMusica){
-        printf("Nenhuma música foi encontrada!\n");
+        printf("Nenhuma música foi encontrada!\n\n");
     }
 }
 
+void ExecutaMusicaPeloIdx(tMusicaVet* mscs, int idx) {
+    if(idx >= mscs->qtdM || idx < 0){
+        printf("\nO indice %d nao corresponde a nenhuma musica!\n\n", idx);
+        return;
+    }
 
+    ExecutarMusica(mscs->musicas[idx]);
+}

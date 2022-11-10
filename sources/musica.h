@@ -33,4 +33,6 @@ char** RetornaNomeDosArtistasDaM(tMusica *msc);
 
 char *RetornarNomeMusic(tMusica *msc);
 
+void ExecutarMusica(tMusica* msc);
+
 #endif

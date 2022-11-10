@@ -10,7 +10,7 @@ struct tArtistas
 tArtistas * CriarArtistas(){
     tArtistas *arts = malloc(sizeof(*arts));
     if(arts == NULL){
-        printf("Ponteiro Artistas NULL");
+        printf("Ponteiro Artistas NULL!\n\n");
         exit(-1);
     }
     arts->qtda=0;
@@ -58,7 +58,7 @@ tArtistas* ListarArtistas(char *caminho){
     FILE * fa = fopen(caminho,"r");
     if (fa == NULL)
   {
-    printf("Erro abertura do arquivo!!");
+    printf("Erro abertura do arquivo!!\n\n");
     exit(EXIT_FAILURE);
   }
     tArtistas *arts = CriarArtistas();
@@ -68,7 +68,7 @@ tArtistas* ListarArtistas(char *caminho){
         if (art != NULL){
             AdicionarArtistas(arts, art);
         }else{
-            printf("Alocação desse ponteiro de artista do arquivo falhou\n");
+            printf("Alocação desse ponteiro de artista do arquivo falhou!\n\n");
         }
     }
     fclose(fa);

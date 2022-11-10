@@ -19,4 +19,6 @@ tMusica* RetMusicaPeloIdx(tMusicaVet *mscs, int idx);
 
 void BuscarMusicasPeloNome(tMusicaVet *mscs, char *busca);
 
+void ExecutaMusicaPeloIdx(tMusicaVet* mscs, int idx);
+
 #endif
