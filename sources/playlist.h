@@ -19,4 +19,10 @@ void SalvarPlaylistEmBinario(tPlaylist *p, FILE * f);
  * no formato de leitura binaria */
 tPlaylist *CarregaPlaylistDeBinario(FILE * f);
 
+char *RetornaNomeDaPlaylsit(tPlaylist* play);
+
+int RetornaQtdMscsPlaylist(tPlaylist* play);
+
+void ListarPlaylist(tPlaylist* play, tMusicaVet* mscs);
+
 #endif

@@ -14,7 +14,7 @@ struct tArtista
 tArtista *CriarArtista(char *id, double seg, char *gen, char *nA, int popu){
     tArtista *art =(tArtista*) malloc(sizeof(*art));
     if(art == NULL){
-        printf("Falha na alocação do ponteiro de artista");
+        printf("Falha na alocação do ponteiro de artista!\n\n");
         exit(-1);
     }
     art->id = (char*)calloc((strlen(id)+1), sizeof(char));

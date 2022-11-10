@@ -19,14 +19,28 @@ int main(int argc, char *argv[]) {
 
     tMusicaVet *mscs = LeMusicasDoArquivo("data_tests/tracks_2.csv",arts);
     BuscarMusicasPeloNome(mscs, "Long, Long, Long - Remastered 2009");
+
+    tPlaylists* plays = CriarListaPlay();
+    ListaPlaylists(plays);
     
-    int idx = 170;
-    printf("Digite o indice da musica: ");
-    //scanf("%d", &idx);
-    ListarMusica(mscs, idx);
+    int idx = 172;
+    CriaPlayslistNaLista(plays, "Teste");
+    ListaPlaylists(plays);
+
+    AdicionaMusicaEmUmaPlayIdx(plays, 0, mscs, idx);
+    AdicionaMusicaEmUmaPlayIdx(plays, 0, mscs, idx+1);
+    AdicionaMusicaEmUmaPlayIdx(plays, 0, mscs, idx+2);
+    ListaPlaylists(plays);
+
+    CriaPlayslistNaLista(plays, "Teste2");
+    ListaPlaylists(plays);
+    ListarUmaDasPlaylists(plays, mscs, 0);
+
+    ListarMusica(mscs, 172);
 
     LiberaVetorMusicas(&mscs);
     LiberarArtistas(&arts);
+    LiberarPlaylists(&plays);
 
     return 0;
 }

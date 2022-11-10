@@ -11,7 +11,7 @@ tPlaylists *CriarListaPlay(){
     tPlaylists *list_play = (tPlaylists *) malloc(sizeof(*list_play));
     
     if(list_play == NULL){
-        printf("ALocação de ponteiro da lista de playlist falhou");
+        printf("Alocação de ponteiro da lista de playlist falhou! \n\n");
         exit(-1);
     
     }
@@ -52,7 +52,7 @@ void SalvarPlaylistsEmBinario(tPlaylists *p, char *caminho){
     f = fopen(caminho, "wb");
 
     if(f == NULL) {
-        printf("SalvarPlaylistsEmBinario: Erro na abertura de arquivo binario.\n");
+        printf("SalvarPlaylistsEmBinario: Erro na abertura de arquivo binario.\n\n");
         exit(1);
     }
     int i = 0;
@@ -73,7 +73,7 @@ tPlaylists *CarregarPlaylistsDeBinario(char *caminho) {
     f = fopen(caminho, "rb");
 
     if(f == NULL) {
-        printf("\nCarregarPlaylistsDeBinario: Save nao encontrado.\n");
+        printf("\nCarregarPlaylistsDeBinario: Save nao encontrado.\n\n");
         return NULL;
     }
 
@@ -92,4 +92,45 @@ tPlaylists *CarregarPlaylistsDeBinario(char *caminho) {
     fclose(f);
 
     return p;
+}
+
+void ListaPlaylists(tPlaylists* plays) {
+    int i = 0;
+
+    if(plays->qtdp == 0){
+        printf("Nenhuma playlist foi criada ainda!\n\n");
+        return;
+    }
+
+    printf("Playlists criadas: %d\n\n", plays->qtdp);
+
+    for(i = 0; i < plays->qtdp; i++) {
+        printf("Indice da playlist: %d\n", i);
+        printf("Nome da playlist: %s\n", RetornaNomeDaPlaylsit(plays->play[i]));
+        printf("Quantidade de musicas: %d \n\n", RetornaQtdMscsPlaylist(plays->play[i]));
+    }
+}
+
+void AdicionaMusicaEmUmaPlayIdx(tPlaylists* plays, int idxPlay, tMusicaVet* mscs, int idxMusica) {
+    if(idxPlay >= plays->qtdp || idxPlay < 0) {
+        printf("Playlist nao existe!\n\n");
+        return;
+    }
+
+    AdicionarMusicaPlaylist(plays->play[idxPlay], mscs, idxMusica);
+}
+
+void CriaPlayslistNaLista(tPlaylists* plays, char* nomePlay) {
+    tPlaylist* play = CriarPlaylist(nomePlay);
+
+    AdicionarPlaylist(plays, play);
+}
+
+void ListarUmaDasPlaylists(tPlaylists* plays, tMusicaVet* mscs, int idxPlay) {
+    if(idxPlay >= plays->qtdp || idxPlay < 0) {
+        printf("Playlist nao existe!\n\n");
+        return;
+    }
+
+    ListarPlaylist(plays->play[idxPlay], mscs);
 }

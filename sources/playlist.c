@@ -12,7 +12,7 @@ tPlaylist *CriarPlaylist(char* nomePlay){
     tPlaylist *play = (tPlaylist *) malloc(sizeof(*play));
 
     if(play == NULL){
-        printf("Alocação de ponteiro da playlist falhou");
+        printf("Alocação de ponteiro da playlist falhou!\n\n");
         exit(-1);
     }
     play->tamNome = strlen(nomePlay) + 1;
@@ -40,7 +40,7 @@ void AdicionarMusicaPlaylist(tPlaylist *play, tMusicaVet* mscs, int idx_msc){
         play->qtdM++;
     }
     else{
-        printf("Falha na adicao da musica!\n");
+        printf("Falha na adicao da musica!\n\n");
     }
 }
 
@@ -59,7 +59,7 @@ void LiberarPlaylist(tPlaylist **p){
 
 void SalvarPlaylistEmBinario(tPlaylist *p, FILE * f){
     if(f == NULL) {
-        printf("Arquivo deve estar aberdo em modo de escrita binario!\n");
+        printf("Arquivo deve estar aberdo em modo de escrita binario!\n\n");
         exit(1);
     }
 
@@ -76,7 +76,7 @@ void SalvarPlaylistEmBinario(tPlaylist *p, FILE * f){
 
 tPlaylist *CarregaPlaylistDeBinario(FILE * f){
     if(f == NULL) {
-        printf("Arquivo deve estar aberdo em modo de leitura binario!\n");
+        printf("Arquivo deve estar aberdo em modo de leitura binario!\n\n");
         exit(1);
     }
     tPlaylist *p = (tPlaylist*)malloc(sizeof(*p));
@@ -97,4 +97,42 @@ tPlaylist *CarregaPlaylistDeBinario(FILE * f){
     fread(p->nome, sizeof(*p->nome), p->tamNome, f);
 
     return p;
+}
+
+char *RetornaNomeDaPlaylsit(tPlaylist* play) {
+    return play->nome;
+}
+
+int RetornaQtdMscsPlaylist(tPlaylist* play) {
+    return play->qtdM;
+}
+
+void ListarPlaylist(tPlaylist* play, tMusicaVet* mscs) {
+    int i = 0;
+
+    printf("Nome da playlist: %s\n", RetornaNomeDaPlaylsit(play));
+
+    printf("Musicas: ");
+
+    if(play->qtdM == 0) {
+        printf("A playlist nao possui nenhuma musica!\n\n");
+        return;
+    }
+    printf("Nome da musica | Indice da musica\n");
+
+    tMusica *msc = NULL;
+
+    for(i = 0; i < play->qtdM; i++) {
+        msc = RetMusicaPeloIdx(mscs, play->mscs[i]);
+
+        if(msc != NULL) {
+            printf("%d- %s | ",i+1 , RetornarNomeMusic(msc));
+        }
+        else{
+            printf("Nome da musica nao encontrado! | ");
+        }
+        printf("%d\n", play->mscs[i]);
+    }
+
+    printf("\n");
 }

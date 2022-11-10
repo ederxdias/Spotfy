@@ -233,7 +233,7 @@ void ImprimirMusica(tMusica *msc){
     ImprimirPropiedades(msc->prop);
     printf("\nArtistas que Produziram a Música:\n");
     for(i = 0; i < msc->qtdA;i++){
-        printf("\nArtista %d:\n", i + 1);
+        printf("Artista %d:\n", i + 1);
         printf("Nome: %s | ", msc->nA[i]);
         printf("Id: %s \n", msc->idA[i]);
 
@@ -241,8 +241,9 @@ void ImprimirMusica(tMusica *msc){
         if(msc->arts_msc[i] != NULL){
             ImprimirArtista(msc->arts_msc[i]);
         }else{
-            printf("Mais informações não foram encontradas sobre esse artista.\n");
+            printf("Mais informações não foram encontradas sobre esse artista.");
         }
+        printf("\n\n");
     }
 }
 // Retorna o nome da Musica
@@ -253,6 +254,14 @@ char *RetornarNomeMusic(tMusica *msc){
 //Imprimir Os nomes dos Artistas
 char** RetornaNomeDosArtistasDaM(tMusica *msc){
     return msc->nA;
+}
+
+void ExecutarMusica(tMusica* msc) {
+    char search[128] = "firefox https://open.spotify.com/track/";
+
+    strcat(search, RetIdM(msc));
+
+    system(search);
 }
 // id: id spotify da track
 // nome: nome da música
