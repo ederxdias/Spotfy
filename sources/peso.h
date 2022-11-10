@@ -6,7 +6,7 @@
 
 typedef struct tPeso tPeso;
 
-tPeso* CriaPeso(int item, int peso);
+tPeso* CriaPeso(int item, double peso);
 
 void LiberaPeso(tPeso* *p);
 
@@ -15,5 +15,7 @@ int RetornaItem(tPeso* p);
 double RetornaPeso(tPeso* p);
 
 void OrdenaPeloPesoDecrescente(tPeso** p, int tam);
+
+void OrdenaPeloPesoCrescente(tPeso** p, int tam);
 
 #endif

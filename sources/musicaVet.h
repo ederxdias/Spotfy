@@ -24,4 +24,6 @@ void ExecutaMusicaPeloIdx(tMusicaVet* mscs, int idx);
 
 void GeraRelatorioMusicas(tMusicaVet* mscs, char* caminho); 
 
+int RetQtdMusicasNaLista(tMusicaVet* mscs);
+
 #endif

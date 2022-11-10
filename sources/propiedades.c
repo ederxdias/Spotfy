@@ -4,6 +4,7 @@ struct tPropiedades
 {
     double danceability;
     double energy;
+    int mode;
     double speechiness;
     double acousticness;
     double instrumentalness;
@@ -12,7 +13,6 @@ struct tPropiedades
     double loudness;
     double tempo;
     int time_signature;
-    int mode;
     int key;
 };
 
@@ -58,4 +58,53 @@ void ImprimirPropiedades(tPropiedades *p){
     printf("Tempo: %.2lf BPM | ", p->tempo);
     printf("Time_signature: %d", p->time_signature);
     printf("\n");
+}
+
+double RetornaDanceProp(tPropiedades* p) {
+    return p->danceability;
+}
+
+double RetornaEnergProp(tPropiedades* p) {
+    return p->energy;
+}
+
+int RetornaModeProp(tPropiedades* p) {
+    return p->mode;
+}
+
+double RetornaSpeechProp(tPropiedades* p) {
+    return p->speechiness;
+}
+
+double RetornaAcoustProp(tPropiedades* p) {
+    return p->acousticness;
+}
+
+double RetornaInstruProp(tPropiedades* p) {
+    return p->instrumentalness;
+}
+
+double RetornaLivenessProp(tPropiedades* p) {
+    return p->liveness;
+}
+
+double RetornaValencProp(tPropiedades* p) {
+    return p->valence;
+}
+
+double DistanciaEntrePropriedades(tPropiedades* p1, tPropiedades* p2) {
+    double dist = 0;
+
+    dist += pow((p1->danceability - p2->danceability), 2);
+    dist += pow((p1->energy - p2->energy), 2);
+    dist += pow((p1->mode - p2->mode), 2);
+    dist += pow((p1->speechiness - p2->speechiness), 2);
+    dist += pow((p1->acousticness - p2->acousticness), 2);
+    dist += pow((p1->instrumentalness - p2->instrumentalness), 2);
+    dist += pow((p1->liveness - p2->liveness), 2);
+    dist += pow((p1->valence - p2->valence), 2);
+
+    dist = sqrt(dist);
+
+    return dist;
 }

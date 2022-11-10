@@ -19,17 +19,21 @@ int main(int argc, char *argv[]) {
     tArtistas *arts = ListarArtistas("data_tests/artists_2.csv");
 
     tMusicaVet *mscs = LeMusicasDoArquivo("data_tests/tracks_2.csv",arts);
-    BuscarMusicasPeloNome(mscs, "One Time");
+    //BuscarMusicasPeloNome(mscs, "One Time");
 
     tPlaylists* plays = CriarListaPlay();
     
     CriaPlayslistNaLista(plays, "Teste");
-    ListaPlaylists(plays);
+    //ListaPlaylists(plays);
 
     AdicionaMusicaEmUmaPlayIdx(plays, 0, mscs, 5);
 
-    GeraRelatorioArtistas(arts, "retorioArt.txt");
-    GeraRelatorioMusicas(mscs, "relatorioMscs.txt");
+    ListarMusica(mscs, 5);
+
+    KmusicasRecomendadasDeUmaPlay(plays, 0, mscs, -1);
+
+    //GeraRelatorioArtistas(arts, "retorioArt.txt");
+    //GeraRelatorioMusicas(mscs, "relatorioMscs.txt");
 
     LiberaVetorMusicas(&mscs);
     LiberarArtistas(&arts);

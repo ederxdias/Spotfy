@@ -286,3 +286,7 @@ void ImprimirMusicaArquivo(tMusica *msc, FILE * f){
 int RetQtdPlayMusica(tMusica* msc) {
     return msc->qtdPlay;
 }
+
+tPropiedades* RetornaPropriedadesMusica(tMusica* msc) {
+    return msc->prop;
+}

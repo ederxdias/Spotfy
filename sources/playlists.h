@@ -24,4 +24,6 @@ void CriaPlayslistNaLista(tPlaylists* plays, char* nomePlay);
 
 void ListarUmaDasPlaylists(tPlaylists* plays, tMusicaVet* mscs, int idxPlay);
 
+void KmusicasRecomendadasDeUmaPlay(tPlaylists* plays, int idxPlay, tMusicaVet* mscs, int k);
+
 #endif
