@@ -31,12 +31,12 @@ char *RetornarNomeMusic(tMusica *msc);
 
 char** RetornaNomeDosArtistasDaM(tMusica *msc);
 
-char *RetornarNomeMusic(tMusica *msc);
-
 void ExecutarMusica(tMusica* msc);
 
 void ImprimirMusicaArquivo(tMusica *msc, FILE * f);
 
 int RetQtdPlayMusica(tMusica* msc);
+
+tPropiedades* RetornaPropriedadesMusica(tMusica* msc);
 
 #endif

@@ -134,3 +134,12 @@ void ListarUmaDasPlaylists(tPlaylists* plays, tMusicaVet* mscs, int idxPlay) {
 
     ListarPlaylist(plays->play[idxPlay], mscs);
 }
+
+void KmusicasRecomendadasDeUmaPlay(tPlaylists* plays, int idxPlay, tMusicaVet* mscs, int k) {
+    if(plays->qtdp < idxPlay || idxPlay < 0) {
+        printf("Essa playlist nao foi encontrada!\n\n");
+        return;
+    }
+
+    RecomendaKmusicasParecidas(plays->play[idxPlay], mscs, k);
+}

@@ -5,7 +5,7 @@ struct tPeso{
     double peso;
 };
 
-tPeso* CriaPeso(int item, int peso) {
+tPeso* CriaPeso(int item, double peso) {
     tPeso* p = (tPeso*)malloc(sizeof(*p));
 
     p->item = item;
@@ -38,6 +38,22 @@ void OrdenaPeloPesoDecrescente(tPeso** p, int tam) {
         j = i - 1;
 
         while(j > -1 && p[j]->peso < chave->peso) {
+            p[j+1] = p[j];
+            j--;
+        }
+        p[j+1] = chave;
+    }
+}
+
+void OrdenaPeloPesoCrescente(tPeso** p, int tam) {
+    int i = 0, j = 0;
+    tPeso* chave = NULL;
+    
+    for(i = 1; i < tam; i++){
+        chave = p[i];
+        j = i - 1;
+
+        while(j > -1 && p[j]->peso > chave->peso) {
             p[j+1] = p[j];
             j--;
         }

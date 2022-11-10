@@ -164,3 +164,7 @@ void GeraRelatorioMusicas(tMusicaVet* mscs, char* caminho) {
 
     fclose(f);
 }
+
+int RetQtdMusicasNaLista(tMusicaVet* mscs) {
+    return mscs->qtdM;
+}

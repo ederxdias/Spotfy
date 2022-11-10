@@ -136,3 +136,93 @@ void ListarPlaylist(tPlaylist* play, tMusicaVet* mscs) {
 
     printf("\n");
 }
+
+tPropiedades *MediaDasPropriedadesPlaylist(tPlaylist* play, tMusicaVet* mscs) {
+    int i = 0;
+
+    if(play->qtdM == 0) {
+        printf("Playlist nao possui musicas!\n\n");
+        return NULL;
+    }
+
+    double danceability = 0, energy = 0, speechiness = 0, acousticness = 0, instrumentalness = 0, liveness = 0, valence = 0;
+    int mode = 0;
+
+    tMusica* msc = NULL;
+
+    for(i = 0; i < play->qtdM; i++) {
+        msc = RetMusicaPeloIdx(mscs, play->mscs[i]);
+
+        if(msc != NULL) {
+            danceability += RetornaDanceProp(RetornaPropriedadesMusica(msc));
+            energy += RetornaEnergProp(RetornaPropriedadesMusica(msc));
+            mode += RetornaModeProp(RetornaPropriedadesMusica(msc));
+            speechiness += RetornaSpeechProp(RetornaPropriedadesMusica(msc));
+            acousticness += RetornaAcoustProp(RetornaPropriedadesMusica(msc));
+            instrumentalness += RetornaInstruProp(RetornaPropriedadesMusica(msc));
+            liveness += RetornaLivenessProp(RetornaPropriedadesMusica(msc));
+            valence += RetornaValencProp(RetornaPropriedadesMusica(msc));
+        }
+    }
+    
+    danceability = danceability/play->qtdM;
+    energy = energy/play->qtdM;
+    mode = mode/play->qtdM;
+    speechiness = speechiness/play->qtdM;
+    acousticness = acousticness/play->qtdM;
+    instrumentalness = instrumentalness/play->qtdM;
+    liveness = liveness/play->qtdM;
+    valence = valence/play->qtdM;
+    
+    tPropiedades* p = CriaPropriedades(danceability, energy, speechiness, acousticness, instrumentalness, 0, liveness, 
+                                       valence, 0, 0, 0, mode);
+    
+    return p;
+}
+
+void RecomendaKmusicasParecidas(tPlaylist* play, tMusicaVet* mscs, int k) {
+    if(k >= RetQtdMusicasNaLista(mscs) || k <= 0) {
+        printf("A quantidade %d de musicas nao pode ser encontrada! ", k);
+        printf("O valor de k pode assumir entre 1 e %d\n\n", RetQtdMusicasNaLista(mscs));
+        return;
+    }
+    if(play->qtdM == 0){
+        printf("Essa playlist nao contem musica!\n\n");
+        return;
+    }
+
+    int i = 0;
+    double dist = 0;
+    tPropiedades* proPlay = MediaDasPropriedadesPlaylist(play, mscs);
+
+    //mProx serve para guardar o id das musicas e a proximidade delas com a playlist
+    tPeso** mProx = (tPeso**)malloc(sizeof(tPeso*)*RetQtdMusicasNaLista(mscs));
+
+    tMusica* msc = NULL;
+    for(i = 0; i < RetQtdMusicasNaLista(mscs); i++) {
+        msc = RetMusicaPeloIdx(mscs, i);
+        dist = DistanciaEntrePropriedades(proPlay, RetornaPropriedadesMusica(msc));
+        
+        mProx[i] = CriaPeso(i, dist);
+    }
+
+    OrdenaPeloPesoCrescente(mProx, RetQtdMusicasNaLista(mscs));
+
+    //Imprimindo as k musicas mais parecidas
+    printf("Top %d Musicas Recomendadas:\n", k);
+    for(i = 0; i < k; i++) {
+        msc = RetMusicaPeloIdx(mscs, RetornaItem(mProx[i]));
+        printf("%d- Indice da musica: %d | ", i + 1, RetornaItem(mProx[i]));
+        printf("Nome da musica: %s | ", RetornarNomeMusic(msc));
+        printf("Id da musica: %s\n\n", RetIdM(msc));
+    }
+
+    for(i = 0; i < RetQtdMusicasNaLista(mscs); i++) {
+        LiberaPeso(&mProx[i]);
+    }
+
+    free(mProx);
+    mProx = NULL;
+
+    LiberaPropiedades(&proPlay);
+}
