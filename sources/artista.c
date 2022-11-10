@@ -31,15 +31,35 @@ tArtista *CriarArtista(char *id, double seg, char *gen, char *nA, int popu){
 
 tArtista *LeArtista(FILE *arq){
     char id[100];
-    fscanf(arq,"%[^;];",id);
+    if(fscanf(arq,"%[^;];",id) != 1){
+        fscanf(arq, "%*[^\n]\n");
+        return NULL;
+    }
+    
     double seg;
-    fscanf(arq,"%lf;",&seg);
+    if(fscanf(arq,"%lf;",&seg) != 1){
+        fscanf(arq, "%*[^\n]\n");
+        return NULL;
+    }
+
     char gen[10000];
-    fscanf(arq,"%[^;];",gen);
+    if(fscanf(arq,"%[^;];",gen) != 1) {
+        fscanf(arq, "%*[^\n]\n");
+        return NULL;
+    }
+
     char nA[10000]; 
-    fscanf(arq,"%[^;];",nA);
+    if(fscanf(arq,"%[^;];",nA) != 1) {
+        fscanf(arq, "%*[^\n]\n");
+        return NULL;
+    }
+
     int popu;
-    fscanf(arq,"%d\n",&popu);
+    if(fscanf(arq,"%d\n",&popu) != 1) {
+        fscanf(arq, "%*[^\n]\n");
+        return NULL;
+    }
+    
     tArtista *art1 = CriarArtista(id,seg,gen,nA,popu);
     return art1;
 }
@@ -90,7 +110,7 @@ void ImprimirArtista(tArtista *art){
     printf("Id: %s | ", art->id);
     printf("Seguidores: %.0lf | ", art->seg);
     printf("Popularidade: %d\n", art->popu);
-    printf("Generos: %s\n",art->gen);
+    printf("Genero: %s\n",art->gen);
 }
 
 void IncrementaQtdPlaylistArtista(tArtista *art) {

@@ -71,35 +71,50 @@ void LiberaVetorMusicas(tMusicaVet **vet){
 }
 
 void ListarMusica(tMusicaVet *mscs, int idx){
-    
+    if(idx >= mscs->qtdM || idx < 0) {
+        printf("\nO indice %d nao corresponde a nenhuma musica!\n", idx);
+        return;
+    }
     ImprimirMusica(mscs->musicas[idx]);
 }
 
-tMusica* RetMusicaIdx(tMusicaVet *mscs, int idx) {
-    if(idx >= mscs->qtdM){
-        printf("Indice maior que a lista de musicas.\n");
+tMusica* RetMusicaPeloIdx(tMusicaVet *mscs, int idx) {
+    if(idx >= mscs->qtdM || idx < 0){
+        printf("\nO indice %d nao corresponde a nenhuma musica!\n", idx);
         return NULL;
     }
     return mscs->musicas[idx];
 }
-void BuscarMusicas(tMusicaVet *mscs){
-    printf("Por favor digite o nome da musica pedida?:\n");
-    char nome[100];
-    scanf("%s", nome);
-    int n = strlen(nome);
-    char  inter[100];
-    inter[0] ='\0';
-    for(int i=0;i<mscs->qtdM;i++){
-        strncat(inter,RetornarNomeMusic(mscs->musicas[i]) ,n);
-        if(strcmp(nome,inter)==0){
-            printf("Indice da musica:%d\n",RetIndDaMusic(mscs->musicas[i]));
-            printf("Id da musica:%s\n", RetIdM(mscs->musicas[i]));
+
+void BuscarMusicasPeloNome(tMusicaVet *mscs, char *busca){
+    int eMusica = 0;
+    for(int i = 0; i < mscs->qtdM; i++){
+        if(strcmp(busca, RetornarNomeMusic(mscs->musicas[i])) == 0){
+            eMusica++;
+            printf("Indice da musica: %d\n", i);
+            printf("Id da musica: %s\n", RetIdM(mscs->musicas[i]));
             printf("Titulo da musica: %s\n", RetornarNomeMusic(mscs->musicas[i]));
-            printf("Nomes dos Artistas:\n ");
-            ImpriNomArtsMusi(mscs->musicas[i]);
+            printf("Nomes dos Artistas:\n");
+            
+            char** Arts = RetornaNomeDosArtistasDaM(mscs->musicas[i]);
+            for(int j = 1; j <= RetQtdArtsM(mscs->musicas[i]); j++){
+                printf("%s ", Arts[j-1]);
+
+                if(!(j%3)){
+                    printf("\n");
+                }
+                else if(j != RetQtdArtsM(mscs->musicas[i])){
+                    printf("| ");
+                }
+            }
+
             printf("\n\n");
+
         }
-        inter[0]='\0';
+    }
+
+    if(!eMusica){
+        printf("Nenhuma música foi encontrada!\n");
     }
 }
 
