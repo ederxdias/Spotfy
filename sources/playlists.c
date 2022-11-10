@@ -73,8 +73,8 @@ tPlaylists *CarregarPlaylistsDeBinario(char *caminho) {
     f = fopen(caminho, "rb");
 
     if(f == NULL) {
-        printf("CarregarPlaylistsDeBinario: Erro na abertura de arquivo binario.\n");
-        exit(1);
+        printf("\nCarregarPlaylistsDeBinario: Save nao encontrado.\n");
+        return NULL;
     }
 
     tPlaylists *p = (tPlaylists*)malloc(sizeof(*p));

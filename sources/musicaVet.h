@@ -15,7 +15,8 @@ void LiberaVetorMusicas(tMusicaVet **vet);
 
 void ListarMusica(tMusicaVet *mscs, int idx);
 
-tMusica* RetMusicaIdx(tMusicaVet *mscs, int idx);
-void BuscarMusicas(tMusicaVet *mscs);
+tMusica* RetMusicaPeloIdx(tMusicaVet *mscs, int idx);
+
+void BuscarMusicasPeloNome(tMusicaVet *mscs, char *busca);
 
 #endif

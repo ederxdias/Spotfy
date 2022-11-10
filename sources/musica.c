@@ -3,7 +3,7 @@
 #define LINHAS_MAX 128
 #define QTD_CHARS_MAX 512
 
-struct tMusica
+struct tMusica 
 {
     char *id;
     char *nM; //Nome da musica
@@ -17,7 +17,6 @@ struct tMusica
     tPropiedades* prop; //Propriedades da musica
     int qtdPlay; //Quantidade de playlist que musica pertence
     tArtista* *arts_msc;// Array dos artistas que produziram a musica
-    int idx_msc // Indice da Musica no Array de musicas
 };
 
 tMusica *CriaMusica(char* id, char* nM, int popu, int duracao, int exp, int qtdA, char** nA, char **idA, 
@@ -156,9 +155,6 @@ tMusica* LeMusicaDoArquivo(FILE * f) {
 
         LiberaMatrizDeChar(nA, LINHAS_MAX, QTD_CHARS_MAX);
         LiberaMatrizDeChar(idA, LINHAS_MAX, QTD_CHARS_MAX);
-        static int cont =0;
-        musica->idx_msc= cont;
-        cont++;
 
         return musica;
     }
@@ -253,15 +249,10 @@ void ImprimirMusica(tMusica *msc){
 char *RetornarNomeMusic(tMusica *msc){
     return msc->nM;
 }
-// Retorna o Indice da musica no vetor de musicas
-int RetIndDaMusic(tMusica *msc){
-    return msc->idx_msc;
-}
+
 //Imprimir Os nomes dos Artistas
-char *ImpriNomArtsMusi(tMusica *msc){
-    for(int i=0; i<msc->qtdA;i++){
-        printf("%s\n", msc->nA[i]);
-    }
+char** RetornaNomeDosArtistasDaM(tMusica *msc){
+    return msc->nA;
 }
 // id: id spotify da track
 // nome: nome da música

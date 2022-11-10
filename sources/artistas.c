@@ -65,10 +65,11 @@ tArtistas* ListarArtistas(char *caminho){
     tArtista *art;
     while(!feof(fa)){
          art = LeArtista(fa);
-        if (art == NULL){
-            printf("ALocação de ponteiro de artista do arquivo falhou");
+        if (art != NULL){
+            AdicionarArtistas(arts, art);
+        }else{
+            printf("Alocação desse ponteiro de artista do arquivo falhou\n");
         }
-        AdicionarArtistas(arts, art);
     }
     fclose(fa);
     return arts;

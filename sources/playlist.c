@@ -18,8 +18,8 @@ tPlaylist *CriarPlaylist(char* nomePlay){
     play->tamNome = strlen(nomePlay) + 1;
     play->nome = (char*)calloc(play->tamNome, sizeof(char));
     strncpy(play->nome, nomePlay, strlen(nomePlay));
-    play->qtdM =0;
-    play->tamVet= 4;
+    play->qtdM = 0;
+    play->tamVet = 4;
     play->mscs = (int *) malloc(sizeof(int)*play->tamVet);
 
     return play;
@@ -31,10 +31,17 @@ void AdicionarMusicaPlaylist(tPlaylist *play, tMusicaVet* mscs, int idx_msc){
         play->mscs =(int *) realloc(play->mscs,sizeof(int)*play->tamVet);     
     }
 
-    ConfiguraMusicaNaPlaylist(RetMusicaIdx(mscs, idx_msc));
+    tMusica* music = RetMusicaPeloIdx(mscs, idx_msc);
 
-    play->mscs[play->qtdM] = idx_msc;
-    play->qtdM++;
+    if(music != NULL) {
+        ConfiguraMusicaNaPlaylist(music);
+
+        play->mscs[play->qtdM] = idx_msc;
+        play->qtdM++;
+    }
+    else{
+        printf("Falha na adicao da musica!\n");
+    }
 }
 
 void LiberarPlaylist(tPlaylist **p){
