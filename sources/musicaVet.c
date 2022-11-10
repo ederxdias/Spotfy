@@ -126,3 +126,41 @@ void ExecutaMusicaPeloIdx(tMusicaVet* mscs, int idx) {
 
     ExecutarMusica(mscs->musicas[idx]);
 }
+
+void GeraRelatorioMusicas(tMusicaVet* mscs, char* caminho) {
+    int i = 0, flag = 0;
+    FILE * f = fopen(caminho, "w");
+
+    if(f == NULL) {
+        printf("Erro ao abrir caminho para relatorio de artistas: %s\n\n", caminho);
+        return;
+    }
+    //rMp eh a relacao musica e a quatidade de playlist que a musica foi adicionada
+    tPeso** rMp = (tPeso**)calloc(mscs->qtdM, sizeof(tPeso*));
+
+    for(i = 0; i < mscs->qtdM; i++) {
+        rMp[i] = CriaPeso(i, RetQtdPlayMusica(mscs->musicas[i]));
+    }
+
+    OrdenaPeloPesoDecrescente(rMp, mscs->qtdM);
+
+    for(i = 0; i < mscs->qtdM; i++) {
+        if(RetornaPeso(rMp[i]) > 0.0) {
+            ImprimirMusicaArquivo(mscs->musicas[RetornaItem(rMp[i])], f);
+            flag++;
+        }
+    }
+
+    if(!flag){
+        fprintf(f, "Nenhuma musica esta em playlist!");
+    }
+
+    for(i = 0; i < mscs->qtdM; i++) {
+        LiberaPeso(&rMp[i]);
+    }
+
+    free(rMp);
+    rMp = NULL;
+
+    fclose(f);
+}

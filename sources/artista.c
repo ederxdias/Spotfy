@@ -7,7 +7,7 @@ struct tArtista
     char *gen; // Uma lista de generos associados ao artista.
     char *nA; // Nome do artista.
     int popu; // Popularidade do artista entre 0 e 100.
-    int playP;
+    int playP; //Quantidade de musicas em playlist
 };
 
 
@@ -25,6 +25,8 @@ tArtista *CriarArtista(char *id, double seg, char *gen, char *nA, int popu){
     art->nA = (char*)calloc((strlen(nA)+1), sizeof(char));
     strncpy(art->nA, nA, strlen(nA));
     art->popu = popu;
+    art->playP = 0;
+    
     return art;
 }
 
@@ -115,4 +117,21 @@ void ImprimirArtista(tArtista *art){
 
 void IncrementaQtdPlaylistArtista(tArtista *art) {
     art->playP++;
+}
+
+int RetQtdPlayArt(tArtista* art) {
+    return art->playP;
+}
+
+void ImprimeArtistaArquivo(tArtista* art, FILE * f) {
+    if(f == NULL) {
+        printf("ImprimeArtistaArquivo: o arquivo deve estar aberto no modo de escrita!\n\n");
+        exit(1);
+    }
+
+    fprintf(f, "Nome: %s | ", art->nA);
+    fprintf(f, "Id: %s | ", art->id);
+    fprintf(f, "Seguidores: %.0lf | ", art->seg);
+    fprintf(f, "Popularidade: %d | ", art->popu);
+    fprintf(f, "Genero: %s\n",art->gen);
 }

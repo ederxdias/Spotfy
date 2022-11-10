@@ -16,8 +16,6 @@ void LiberaArtista(tArtista **p);
 
 char *RetNa(tArtista *a);
 
-char *RetNa(tArtista *a);
-
 char *RetId(tArtista *a);
 
 char *RetGen(tArtista *a);
@@ -28,7 +26,11 @@ double RetSeg(tArtista *a);
 
 void ImprimirArtista(tArtista *art);
 
+int RetQtdPlayArt(tArtista* art);
+
 //Aumenta em um a quantidade de playlist que o artista participa
 void IncrementaQtdPlaylistArtista(tArtista *art);
+
+void ImprimeArtistaArquivo(tArtista* art, FILE * f);
 
 #endif

@@ -2,6 +2,7 @@
 #define _MUSICAVET_H_
 
 #include "musica.h"
+#include "peso.h"
 
 typedef struct tMusicaVet tMusicaVet;
 
@@ -20,5 +21,7 @@ tMusica* RetMusicaPeloIdx(tMusicaVet *mscs, int idx);
 void BuscarMusicasPeloNome(tMusicaVet *mscs, char *busca);
 
 void ExecutaMusicaPeloIdx(tMusicaVet* mscs, int idx);
+
+void GeraRelatorioMusicas(tMusicaVet* mscs, char* caminho); 
 
 #endif
