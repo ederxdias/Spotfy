@@ -35,4 +35,8 @@ char *RetornarNomeMusic(tMusica *msc);
 
 void ExecutarMusica(tMusica* msc);
 
+void ImprimirMusicaArquivo(tMusica *msc, FILE * f);
+
+int RetQtdPlayMusica(tMusica* msc);
+
 #endif

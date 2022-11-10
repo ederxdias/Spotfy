@@ -263,11 +263,26 @@ void ExecutarMusica(tMusica* msc) {
 
     system(search);
 }
-// id: id spotify da track
-// nome: nome da música
-// popularity: Popularidade da música entre 0 e 100
-// duracao_ms: Duração da música em ms
-// explicit: Se contem conteudo explicito ou não
-// artists: Listas de artistas que criaram a musica
-// id_artists: id dos artistas que criaram a música
-// data de lançamento
+
+void ImprimirMusicaArquivo(tMusica *msc, FILE * f){
+    int i = 0;
+
+    if(f == NULL) {
+        printf("ImprimeMusicaArquivo: arquivo deve ser passado aberto em modo escrita!\n");
+        exit(1);
+    }
+    
+    fprintf(f, "Nome: %s|", msc->nM);
+    fprintf(f, "Id: %s|", msc->id);
+    fprintf(f, "Data de Lançamento: %s|", msc->dataL);
+    fprintf(f, "Popularity: %d", msc->popu);
+    for(i = 0; i < msc->qtdA;i++){
+        fprintf(f, "|NomeArtista%d: %s|", i + 1, msc->nA[i]);
+        fprintf(f, "IdArtista%d: %s", i + 1, msc->idA[i]);
+    }
+    fprintf(f, "\n");
+}
+
+int RetQtdPlayMusica(tMusica* msc) {
+    return msc->qtdPlay;
+}

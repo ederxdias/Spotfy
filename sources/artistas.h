@@ -2,6 +2,7 @@
 #define ARTISTAS_H
 
 #include "artista.h"
+#include "peso.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -30,5 +31,7 @@ void AdicionarQtdArt(tArtistas *arts, int qtd);
 void RealocarArtistas(tArtistas *arts, int qtdA);
 
 void LiberarVetorArts(tArtistas **arts);
+
+void GeraRelatorioArtistas(tArtistas* arts, char* caminho);
 
 #endif

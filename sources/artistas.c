@@ -31,12 +31,6 @@ void AdicionarArtistas(tArtistas *arts, tArtista *art){
         arts->art = realloc(arts->art,sizeof(tArtista **)*arts->tamVet);     
     }
     arts->art[qtda-1] = art;
-    // printf("%s;", RetId(arts->art[qtda-1]));
-//     printf("%.1f;", RetSeg(arts->art[qtda-1]));
-//     printf("%s;", RetGen(arts->art[qtda-1]));
-//     printf("%s;", RetNa(arts->art[qtda-1]));
-//     printf("%d\n", RetPopu(arts->art[qtda-1]));
-  
 }
 
 void LiberarArtistas(tArtistas **p){
@@ -110,4 +104,42 @@ void LiberarVetorArts(tArtistas **arts){
         free((*arts)->art);
         (*arts)->art = NULL;
     }
+}
+
+void GeraRelatorioArtistas(tArtistas* arts, char* caminho) {
+    int i = 0, flag = 0;
+    FILE * f = fopen(caminho, "w");
+
+    if(f == NULL) {
+        printf("Erro ao abrir caminho para relatorio de artistas: %s\n\n", caminho);
+        return;
+    }
+    //rAp eh a relacao artista e a quatidade de playlist que as musicas dele foram adicionadas
+    tPeso** rAp = (tPeso**)calloc(arts->qtda, sizeof(tPeso*));
+
+    for(i = 0; i < arts->qtda; i++) {
+        rAp[i] = CriaPeso(i, RetQtdPlayArt(arts->art[i]));
+    }
+
+    OrdenaPeloPesoDecrescente(rAp, arts->qtda);
+
+    for(i = 0; i < arts->qtda; i++) {
+        if(RetornaPeso(rAp[i]) > 0.0) {
+            ImprimeArtistaArquivo(arts->art[RetornaItem(rAp[i])], f);
+            flag++;
+        }
+    }
+
+    if(!flag){
+        fprintf(f, "Nenhum artista tem musica em playlist, ou ele nao foi encontrado no arquivo de artistas!");
+    }
+
+    for(i = 0; i < arts->qtda; i++) {
+        LiberaPeso(&rAp[i]);
+    }
+
+    free(rAp);
+    rAp = NULL;
+
+    fclose(f);
 }

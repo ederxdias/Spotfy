@@ -2,6 +2,7 @@
 #include "artistas.h"
 #include "musicaVet.h"
 #include "playlists.h"
+#include "peso.h"
 
 
 int main(int argc, char *argv[]) {
@@ -18,25 +19,17 @@ int main(int argc, char *argv[]) {
     tArtistas *arts = ListarArtistas("data_tests/artists_2.csv");
 
     tMusicaVet *mscs = LeMusicasDoArquivo("data_tests/tracks_2.csv",arts);
-    BuscarMusicasPeloNome(mscs, "Long, Long, Long - Remastered 2009");
+    BuscarMusicasPeloNome(mscs, "One Time");
 
     tPlaylists* plays = CriarListaPlay();
-    ListaPlaylists(plays);
     
-    int idx = 172;
     CriaPlayslistNaLista(plays, "Teste");
     ListaPlaylists(plays);
 
-    AdicionaMusicaEmUmaPlayIdx(plays, 0, mscs, idx);
-    AdicionaMusicaEmUmaPlayIdx(plays, 0, mscs, idx+1);
-    AdicionaMusicaEmUmaPlayIdx(plays, 0, mscs, idx+2);
-    ListaPlaylists(plays);
+    AdicionaMusicaEmUmaPlayIdx(plays, 0, mscs, 5);
 
-    CriaPlayslistNaLista(plays, "Teste2");
-    ListaPlaylists(plays);
-    ListarUmaDasPlaylists(plays, mscs, 0);
-
-    ListarMusica(mscs, 172);
+    GeraRelatorioArtistas(arts, "retorioArt.txt");
+    GeraRelatorioMusicas(mscs, "relatorioMscs.txt");
 
     LiberaVetorMusicas(&mscs);
     LiberarArtistas(&arts);
