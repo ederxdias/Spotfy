@@ -1,15 +1,15 @@
-#include "musicaVet.h"
+#include "musicas.h"
 
 #define TAM_INICIAL_VET 132
 
-struct tMusicaVet{
+struct tMusicas{
     tMusica* *musicas;
     int qtdM;
     int tamVet;
 };
 
-tMusicaVet* InicializaVetorMusicas() {
-    tMusicaVet* v = (tMusicaVet*)malloc(sizeof(*v));
+tMusicas* InicializaVetorMusicas() {
+    tMusicas* v = (tMusicas*)malloc(sizeof(*v));
     v->tamVet = TAM_INICIAL_VET;
     v->musicas = (tMusica**)malloc(sizeof(tMusica*)*v->tamVet);
     v->qtdM = 0;
@@ -17,8 +17,8 @@ tMusicaVet* InicializaVetorMusicas() {
     return v;
 }
 
-tMusicaVet* LeMusicasDoArquivo(char* caminho, tArtistas *arts) {
-   tMusicaVet* v = InicializaVetorMusicas();
+tMusicas* LeMusicasDoArquivo(char* caminho, tArtistas *arts) {
+    tMusicas* v = InicializaVetorMusicas();
     tMusica* musica = NULL;
 
     FILE * f = NULL;
@@ -26,9 +26,12 @@ tMusicaVet* LeMusicasDoArquivo(char* caminho, tArtistas *arts) {
     f = fopen(caminho, "r");
 
     if(f == NULL){
-        printf("Erro ao abrir arquivo: %s\n\n", caminho);
+        printf("LeMusicasDoArquivo: Erro ao abrir arquivo: %s\n\n", caminho);
         exit(1);
     }
+
+    printf("Operacao: Leitura de Musicas e Conexao Musica/Artista Iniciada!\n");
+
     while(!feof(f)) {
         musica = LeMusicaDoArquivo(f);
 
@@ -40,11 +43,13 @@ tMusicaVet* LeMusicasDoArquivo(char* caminho, tArtistas *arts) {
     }
       
     fclose(f);
+
+    printf("Operacao: Leitura de Musicas e Conexao Musica/Artista Finalizada!\n");
  
     return v;
 }
 
-void AdicionaMusicaAoVetMusicas(tMusicaVet *v, tMusica* m) {
+void AdicionaMusicaAoVetMusicas(tMusicas *v, tMusica* m) {
     if(v->qtdM >= v->tamVet) {
         v->tamVet = v->tamVet*2;
         v->musicas = realloc(v->musicas, sizeof(*v->musicas)*v->tamVet);
@@ -54,7 +59,7 @@ void AdicionaMusicaAoVetMusicas(tMusicaVet *v, tMusica* m) {
     v->qtdM++;
 }
 
-void LiberaVetorMusicas(tMusicaVet **vet){
+void LiberaVetorMusicas(tMusicas **vet){
     int i = 0;
 
     if(*vet != NULL){
@@ -70,7 +75,7 @@ void LiberaVetorMusicas(tMusicaVet **vet){
     }
 }
 
-void ListarMusica(tMusicaVet *mscs, int idx){
+void ListarMusica(tMusicas *mscs, int idx){
     if(idx >= mscs->qtdM || idx < 0) {
         printf("\nO indice %d nao corresponde a nenhuma musica!\n", idx);
         return;
@@ -78,7 +83,7 @@ void ListarMusica(tMusicaVet *mscs, int idx){
     ImprimirMusica(mscs->musicas[idx]);
 }
 
-tMusica* RetMusicaPeloIdx(tMusicaVet *mscs, int idx) {
+tMusica* RetMusicaPeloIdx(tMusicas *mscs, int idx) {
     if(idx >= mscs->qtdM || idx < 0){
         printf("\nO indice %d nao corresponde a nenhuma musica!\n", idx);
         return NULL;
@@ -86,14 +91,14 @@ tMusica* RetMusicaPeloIdx(tMusicaVet *mscs, int idx) {
     return mscs->musicas[idx];
 }
 
-void BuscarMusicasPeloNome(tMusicaVet *mscs, char *busca){
+void BuscarMusicasPeloNome(tMusicas *mscs, char *busca){
     int eMusica = 0;
     for(int i = 0; i < mscs->qtdM; i++){
-        if(strcmp(busca, RetornarNomeMusic(mscs->musicas[i])) == 0){
+        if(strcmp(busca, RetornaNomeMusic(mscs->musicas[i])) == 0){
             eMusica++;
             printf("Indice da musica: %d\n", i);
-            printf("Id da musica: %s\n", RetIdM(mscs->musicas[i]));
-            printf("Titulo da musica: %s\n", RetornarNomeMusic(mscs->musicas[i]));
+            printf("Id da musica: %s\n", RetornaIdMusica(mscs->musicas[i]));
+            printf("Titulo da musica: %s\n", RetornaNomeMusic(mscs->musicas[i]));
             printf("Nomes dos Artistas:\n");
             
             char** Arts = RetornaNomeDosArtistasDaM(mscs->musicas[i]);
@@ -118,7 +123,7 @@ void BuscarMusicasPeloNome(tMusicaVet *mscs, char *busca){
     }
 }
 
-void ExecutaMusicaPeloIdx(tMusicaVet* mscs, int idx) {
+void ExecutaMusicaPeloIdx(tMusicas* mscs, int idx) {
     if(idx >= mscs->qtdM || idx < 0){
         printf("\nO indice %d nao corresponde a nenhuma musica!\n\n", idx);
         return;
@@ -127,7 +132,7 @@ void ExecutaMusicaPeloIdx(tMusicaVet* mscs, int idx) {
     ExecutarMusica(mscs->musicas[idx]);
 }
 
-void GeraRelatorioMusicas(tMusicaVet* mscs, char* caminho) {
+void GeraRelatorioMusicas(tMusicas* mscs, char* caminho) {
     int i = 0, flag = 0;
     FILE * f = fopen(caminho, "w");
 
@@ -165,6 +170,6 @@ void GeraRelatorioMusicas(tMusicaVet* mscs, char* caminho) {
     fclose(f);
 }
 
-int RetQtdMusicasNaLista(tMusicaVet* mscs) {
+int RetQtdMusicasNaLista(tMusicas* mscs) {
     return mscs->qtdM;
 }

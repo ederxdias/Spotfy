@@ -111,7 +111,7 @@ void ListaPlaylists(tPlaylists* plays) {
     }
 }
 
-void AdicionaMusicaEmUmaPlayIdx(tPlaylists* plays, int idxPlay, tMusicaVet* mscs, int idxMusica) {
+void AdicionaMusicaEmUmaPlayIdx(tPlaylists* plays, int idxPlay, tMusicas* mscs, int idxMusica) {
     if(idxPlay >= plays->qtdp || idxPlay < 0) {
         printf("Playlist nao existe!\n\n");
         return;
@@ -126,7 +126,7 @@ void CriaPlayslistNaLista(tPlaylists* plays, char* nomePlay) {
     AdicionarPlaylist(plays, play);
 }
 
-void ListarUmaDasPlaylists(tPlaylists* plays, tMusicaVet* mscs, int idxPlay) {
+void ListarUmaDasPlaylists(tPlaylists* plays, tMusicas* mscs, int idxPlay) {
     if(idxPlay >= plays->qtdp || idxPlay < 0) {
         printf("Playlist nao existe!\n\n");
         return;
@@ -135,7 +135,7 @@ void ListarUmaDasPlaylists(tPlaylists* plays, tMusicaVet* mscs, int idxPlay) {
     ListarPlaylist(plays->play[idxPlay], mscs);
 }
 
-void KmusicasRecomendadasDeUmaPlay(tPlaylists* plays, int idxPlay, tMusicaVet* mscs, int k) {
+void KmusicasRecomendadasDeUmaPlay(tPlaylists* plays, int idxPlay, tMusicas* mscs, int k) {
     if(plays->qtdp < idxPlay || idxPlay < 0) {
         printf("Essa playlist nao foi encontrada!\n\n");
         return;

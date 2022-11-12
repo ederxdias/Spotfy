@@ -2,7 +2,7 @@
 #define PLAYLISTS_H
 
 #include "playlist.h"
-#include "musicaVet.h"
+#include "musicas.h"
 
 typedef struct tPlaylists tPlaylists;
 
@@ -18,12 +18,12 @@ tPlaylists *CarregarPlaylistsDeBinario(char *caminho);
 
 void ListaPlaylists(tPlaylists* plays);
 
-void AdicionaMusicaEmUmaPlayIdx(tPlaylists* plays, int idxPlay, tMusicaVet* mscs, int idxMusica);
+void AdicionaMusicaEmUmaPlayIdx(tPlaylists* plays, int idxPlay, tMusicas* mscs, int idxMusica);
 
 void CriaPlayslistNaLista(tPlaylists* plays, char* nomePlay);
 
-void ListarUmaDasPlaylists(tPlaylists* plays, tMusicaVet* mscs, int idxPlay);
+void ListarUmaDasPlaylists(tPlaylists* plays, tMusicas* mscs, int idxPlay);
 
-void KmusicasRecomendadasDeUmaPlay(tPlaylists* plays, int idxPlay, tMusicaVet* mscs, int k);
+void KmusicasRecomendadasDeUmaPlay(tPlaylists* plays, int idxPlay, tMusicas* mscs, int k);
 
 #endif

@@ -2,13 +2,13 @@
 
 struct tArtistas
 {
-    tArtista **art;
+    tArtista* *art;
     int qtda;
     int tamVet;
 };
 
-tArtistas * CriarArtistas(){
-    tArtistas *arts = malloc(sizeof(*arts));
+tArtistas* CriarArtistas(){
+    tArtistas* arts = malloc(sizeof(*arts));
     if(arts == NULL){
         printf("Ponteiro Artistas NULL!\n\n");
         exit(-1);
@@ -21,7 +21,7 @@ tArtistas * CriarArtistas(){
 
 
 
-void AdicionarArtistas(tArtistas *arts, tArtista *art){
+void AdicionarArtistas(tArtistas* arts, tArtista* art){
     arts->qtda++;
     
     int qtda = arts->qtda;
@@ -33,7 +33,7 @@ void AdicionarArtistas(tArtistas *arts, tArtista *art){
     arts->art[qtda-1] = art;
 }
 
-void LiberarArtistas(tArtistas **p){
+void LiberarArtistas(tArtistas* *p){
     if(*p != NULL){
 
         for(int i=0; i < (*p)->qtda; i++){
@@ -48,13 +48,16 @@ void LiberarArtistas(tArtistas **p){
     }
 }
 
-tArtistas* ListarArtistas(char *caminho){
+tArtistas* ListarArtistas(char* caminho){
     FILE * fa = fopen(caminho,"r");
     if (fa == NULL)
   {
     printf("Erro abertura do arquivo!!\n\n");
     exit(EXIT_FAILURE);
   }
+
+    printf("Leitura de Artistas Iniciada!\n");
+
     tArtistas *arts = CriarArtistas();
     tArtista *art;
     while(!feof(fa)){
@@ -62,48 +65,61 @@ tArtistas* ListarArtistas(char *caminho){
         if (art != NULL){
             AdicionarArtistas(arts, art);
         }else{
-            printf("Alocação desse ponteiro de artista do arquivo falhou!\n\n");
+            printf("Alocação desse um ponteiro de artista do arquivo falhou!\n");
         }
     }
     fclose(fa);
+
+    printf("Leitura de Artistas Finalizada!\n\n");
+
+    printf("Ordenacao de Artistas Iniciada!\n");
+    OrdenaArrArtistasCrescenteId(arts->art, arts->qtda);
+    printf("Ordenacao de Artistas Finalizada!\n");
+
+    system("clear");
+
     return arts;
 }
 
 
-int AcharIndexArt(tArtistas *arts, char *id){
+int AcharIndexArtPeloId(tArtistas* arts, char* id){
+    if(arts->qtda == 0) {
+        return NOT_FOUND;
+    }
+
     for(int i=0;i<arts->qtda;i++){
         if(strcmp(id,RetId(arts->art[i])) == 0){
             return i;
         }
     }
-    return -1;
+    return NOT_FOUND;
 }
 
-tArtista * RetornarArtistaPonteiro(tArtistas *arts, int idx){
-    return arts->art[idx];
-}
-
-void MudarArtista(tArtistas *arts, tArtista *art, int idx){
-    arts->art[idx] = art;
-}
-
-void ImprimirArtistas(tArtistas *arts, int idx){
-    ImprimirArtista(arts->art[idx]);
-}
-
-void AdicionarQtdArt(tArtistas *arts, int qtd){
-    arts->qtda = qtd;
-}
-
-void RealocarArtistas(tArtistas *arts, int qtdA){
-    arts->art = realloc(arts->art,sizeof(tArtista**)*qtdA);
-}
-
-void LiberarVetorArts(tArtistas **arts){
-    if((*arts)->art != NULL){
-        free((*arts)->art);
-        (*arts)->art = NULL;
+int AcharIndexArtPeloIdB(tArtistas* arts, char* id) {
+    if(arts->qtda == 0) {
+        return NOT_FOUND;
     }
+
+    int i = 0, f = arts->qtda - 1, idx = NOT_FOUND;
+
+    while(i <= f) {
+        idx = (i+f)/2;
+        if(RelacionaId1ComId2(id, RetId(arts->art[idx])) == ID1_IGUAL){
+            return idx;
+        }
+        else if(RelacionaId1ComId2(id, RetId(arts->art[idx])) == ID1_MENOR){
+            f = idx - 1;
+        }
+        else if(RelacionaId1ComId2(id, RetId(arts->art[idx])) == ID1_MAIOR){
+            i = idx + 1;
+        }
+    }
+
+    return NOT_FOUND;
+}
+
+tArtista* RetornaArtistaPonteiro(tArtistas* arts, int idx){
+    return arts->art[idx];
 }
 
 void GeraRelatorioArtistas(tArtistas* arts, char* caminho) {

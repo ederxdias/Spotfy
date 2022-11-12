@@ -1,5 +1,7 @@
 #include "artista.h"
 
+typedef int (*fptrComp)(const void*, const void*);
+
 struct tArtista
 {
     char *id; // id do artista na base do Spotify.
@@ -32,6 +34,10 @@ tArtista *CriarArtista(char *id, double seg, char *gen, char *nA, int popu){
 
 
 tArtista *LeArtista(FILE *arq){
+    if(arq == NULL) {
+        printf("LeArtista: Arquivo deve estar aberto em modo leitura!\n");
+        exit(EXIT_FAILURE);
+    }
     char id[100];
     if(fscanf(arq,"%[^;];",id) != 1){
         fscanf(arq, "%*[^\n]\n");
@@ -126,7 +132,7 @@ int RetQtdPlayArt(tArtista* art) {
 void ImprimeArtistaArquivo(tArtista* art, FILE * f) {
     if(f == NULL) {
         printf("ImprimeArtistaArquivo: o arquivo deve estar aberto no modo de escrita!\n\n");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     fprintf(f, "Nome: %s | ", art->nA);
@@ -134,4 +140,29 @@ void ImprimeArtistaArquivo(tArtista* art, FILE * f) {
     fprintf(f, "Seguidores: %.0lf | ", art->seg);
     fprintf(f, "Popularidade: %d | ", art->popu);
     fprintf(f, "Genero: %s\n",art->gen);
+}
+
+int EhIdArt1MaiorIdArt2(const void* art1, const void* art2) {
+    if(strcmp((*(tArtista**)art1)->id, (*(tArtista**)art2)->id) > 0){
+        return 1;
+    }
+    else
+        return 0;
+}
+
+int RelacionaId1ComId2(char* id1, char* id2) {
+    if(strcmp(id1, id2) == 0) {
+        return ID1_IGUAL;
+    }
+    else if(strcmp(id1, id2) > 0) {
+        return ID1_MAIOR;
+    }
+    else {
+        return ID1_MENOR;
+    }
+}
+
+void OrdenaArrArtistasCrescenteId(tArtista* *art, int tam) {
+    fptrComp compara = EhIdArt1MaiorIdArt2;
+    qsort(art, tam, sizeof(*art), compara);
 }

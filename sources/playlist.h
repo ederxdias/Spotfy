@@ -1,14 +1,14 @@
 #ifndef PLAYLIST_H
 #define PLAYLIST_H
 
-#include "musicaVet.h"
+#include "musicas.h"
 #include "peso.h"
 
 typedef struct tPlaylist tPlaylist;
 
 tPlaylist *CriarPlaylist(char* nomePlay);
 
-void AdicionarMusicaPlaylist(tPlaylist *play, tMusicaVet* mscs, int idx_msc);
+void AdicionarMusicaPlaylist(tPlaylist *play, tMusicas* mscs, int idx_msc);
 
 void LiberarPlaylist(tPlaylist **p);
 
@@ -24,10 +24,10 @@ char *RetornaNomeDaPlaylsit(tPlaylist* play);
 
 int RetornaQtdMscsPlaylist(tPlaylist* play);
 
-void ListarPlaylist(tPlaylist* play, tMusicaVet* mscs);
+void ListarPlaylist(tPlaylist* play, tMusicas* mscs);
 
-tPropiedades *MediaDasPropriedadesPlaylist(tPlaylist* play, tMusicaVet* mscs);
+tPropiedades *MediaDasPropriedadesPlaylist(tPlaylist* play, tMusicas* mscs);
 
-void RecomendaKmusicasParecidas(tPlaylist* play, tMusicaVet* mscs, int k);
+void RecomendaKmusicasParecidas(tPlaylist* play, tMusicas* mscs, int k);
 
 #endif
