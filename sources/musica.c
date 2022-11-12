@@ -103,8 +103,8 @@ void LiberaMusica(tMusica **m) {
 
 tMusica* LeMusicaDoArquivo(FILE * f) {
     if(f == NULL){
-        printf("Erro o arquivo passado deve estar aberto em modo leitura!\n");
-        exit(1);
+        printf("LeMusicadoArquivo: Erro o arquivo passado deve estar aberto em modo leitura!\n");
+        exit(EXIT_FAILURE);
     }
 
     char id[100], nM[10000], **nA, **idA, data[20];
@@ -144,6 +144,8 @@ tMusica* LeMusicaDoArquivo(FILE * f) {
         if(fscanf(f, "%lf;%lf;%d;%lf;%d;%lf;%lf;%lf;%lf;%lf;%lf;%d\n\r", &danceability, &energy, &key,&loudness, &mode, &speechiness, 
            &acousticness, &instrumentalness, &liveness, &valence, &tempo, &time_signature) != 12){
             fscanf(f, "%*[^\n]\n\r");
+            LiberaMatrizDeChar(nA, LINHAS_MAX, QTD_CHARS_MAX);
+            LiberaMatrizDeChar(idA, LINHAS_MAX, QTD_CHARS_MAX);
             
             return NULL;
         }
@@ -170,7 +172,7 @@ char** CriaUmaMatrizDeChar(int qtdLinha, int qtdChars){
     m = (char**)malloc(sizeof(char*)*qtdLinha);
 
     for(i = 0; i < qtdLinha; i++) {
-        m[i] = (char*)malloc(sizeof(char*)*qtdChars);
+        m[i] = (char*)malloc(sizeof(char)*qtdChars);
     }
 
     return m;
@@ -190,18 +192,18 @@ void AdicionarArtistasDaMusica(tMusica *msc, tArtistas *arts){
     int i = 0, idx = 0;
 
     for(i = 0; i < msc->qtdA; i++){
-        idx = AcharIndexArt(arts,msc->idA[i]);
+        idx = AcharIndexArtPeloIdB(arts,msc->idA[i]);
         // Há casos em que o indice do artista procurado não existe;
-        if(idx == -1){
+        if(idx == NOT_FOUND){
             msc->arts_msc[i] = NULL;
         }
         else{
-            msc->arts_msc[i] = RetornarArtistaPonteiro(arts, idx);
+            msc->arts_msc[i] = RetornaArtistaPonteiro(arts, idx);
         }
     }
 }
 // Retorna o Id da Musica
-char *RetIdM(tMusica *msc) {
+char *RetornaIdMusica(tMusica *msc) {
     return msc->id;
 }
 // Retorna o Quantidade de Artistas da musica
@@ -247,7 +249,7 @@ void ImprimirMusica(tMusica *msc){
     }
 }
 // Retorna o nome da Musica
-char *RetornarNomeMusic(tMusica *msc){
+char *RetornaNomeMusic(tMusica *msc){
     return msc->nM;
 }
 
@@ -259,7 +261,7 @@ char** RetornaNomeDosArtistasDaM(tMusica *msc){
 void ExecutarMusica(tMusica* msc) {
     char search[128] = "firefox https://open.spotify.com/track/";
 
-    strcat(search, RetIdM(msc));
+    strcat(search, RetornaIdMusica(msc));
 
     system(search);
 }

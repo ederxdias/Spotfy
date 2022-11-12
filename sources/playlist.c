@@ -13,7 +13,7 @@ tPlaylist *CriarPlaylist(char* nomePlay){
 
     if(play == NULL){
         printf("Alocação de ponteiro da playlist falhou!\n\n");
-        exit(-1);
+        exit(EXIT_FAILURE);
     }
     play->tamNome = strlen(nomePlay) + 1;
     play->nome = (char*)calloc(play->tamNome, sizeof(char));
@@ -25,7 +25,7 @@ tPlaylist *CriarPlaylist(char* nomePlay){
     return play;
 }
 
-void AdicionarMusicaPlaylist(tPlaylist *play, tMusicaVet* mscs, int idx_msc){
+void AdicionarMusicaPlaylist(tPlaylist *play, tMusicas* mscs, int idx_msc){
     if(play->qtdM >= play->tamVet){
         play->tamVet= play->tamVet*2;
         play->mscs =(int *) realloc(play->mscs,sizeof(int)*play->tamVet);     
@@ -60,7 +60,7 @@ void LiberarPlaylist(tPlaylist **p){
 void SalvarPlaylistEmBinario(tPlaylist *p, FILE * f){
     if(f == NULL) {
         printf("Arquivo deve estar aberdo em modo de escrita binario!\n\n");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     /*
@@ -77,7 +77,7 @@ void SalvarPlaylistEmBinario(tPlaylist *p, FILE * f){
 tPlaylist *CarregaPlaylistDeBinario(FILE * f){
     if(f == NULL) {
         printf("Arquivo deve estar aberdo em modo de leitura binario!\n\n");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
     tPlaylist *p = (tPlaylist*)malloc(sizeof(*p));
 
@@ -107,7 +107,7 @@ int RetornaQtdMscsPlaylist(tPlaylist* play) {
     return play->qtdM;
 }
 
-void ListarPlaylist(tPlaylist* play, tMusicaVet* mscs) {
+void ListarPlaylist(tPlaylist* play, tMusicas* mscs) {
     int i = 0;
 
     printf("Nome da playlist: %s\n", RetornaNomeDaPlaylsit(play));
@@ -126,7 +126,7 @@ void ListarPlaylist(tPlaylist* play, tMusicaVet* mscs) {
         msc = RetMusicaPeloIdx(mscs, play->mscs[i]);
 
         if(msc != NULL) {
-            printf("%d- %s | ",i+1 , RetornarNomeMusic(msc));
+            printf("%d- %s | ",i+1 , RetornaNomeMusic(msc));
         }
         else{
             printf("Nome da musica nao encontrado! | ");
@@ -137,7 +137,7 @@ void ListarPlaylist(tPlaylist* play, tMusicaVet* mscs) {
     printf("\n");
 }
 
-tPropiedades *MediaDasPropriedadesPlaylist(tPlaylist* play, tMusicaVet* mscs) {
+tPropiedades *MediaDasPropriedadesPlaylist(tPlaylist* play, tMusicas* mscs) {
     int i = 0;
 
     if(play->qtdM == 0) {
@@ -180,7 +180,7 @@ tPropiedades *MediaDasPropriedadesPlaylist(tPlaylist* play, tMusicaVet* mscs) {
     return p;
 }
 
-void RecomendaKmusicasParecidas(tPlaylist* play, tMusicaVet* mscs, int k) {
+void RecomendaKmusicasParecidas(tPlaylist* play, tMusicas* mscs, int k) {
     if(k >= RetQtdMusicasNaLista(mscs) || k <= 0) {
         printf("A quantidade %d de musicas nao pode ser encontrada! ", k);
         printf("O valor de k pode assumir entre 1 e %d\n\n", RetQtdMusicasNaLista(mscs));
@@ -213,8 +213,8 @@ void RecomendaKmusicasParecidas(tPlaylist* play, tMusicaVet* mscs, int k) {
     for(i = 0; i < k; i++) {
         msc = RetMusicaPeloIdx(mscs, RetornaItem(mProx[i]));
         printf("%d- Indice da musica: %d | ", i + 1, RetornaItem(mProx[i]));
-        printf("Nome da musica: %s | ", RetornarNomeMusic(msc));
-        printf("Id da musica: %s\n\n", RetIdM(msc));
+        printf("Nome da musica: %s | ", RetornaNomeMusic(msc));
+        printf("Id da musica: %s\n\n", RetornaIdMusica(msc));
     }
 
     for(i = 0; i < RetQtdMusicasNaLista(mscs); i++) {

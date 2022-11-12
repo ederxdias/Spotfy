@@ -6,31 +6,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define NOT_FOUND -1
+
 typedef struct tArtistas tArtistas;
 
-tArtistas * CriarArtistas();
+tArtistas* CriarArtistas();
 
-void AdicionarArtistas(tArtistas *arts, tArtista *art);
+void AdicionarArtistas(tArtistas* arts, tArtista* art);
 
-void LiberarArtistas(tArtistas **p);
+void LiberarArtistas(tArtistas* *p);
 
-tArtistas *ListarArtistas(char *caminho);
+//Le os tArtista do arquivo que o caminho indica, e retorna um tArtistas com os tArtista lidos já
+//ordenados em ordem crescente de id
+tArtistas* ListarArtistas(char* caminho);
 
-tArtista * AcharStructArt(tArtistas *arts, char *id);
+tArtista* AcharStructArt(tArtistas* arts, char* id);
 
-int AcharIndexArt(tArtistas *arts, char *id);
+//Retorna o indice do artista caso o encontre ou retorna NOT_FOUND caso nao o encontre
+int AcharIndexArtPeloId(tArtistas* arts, char* id);
 
-tArtista * RetornarArtistaPonteiro(tArtistas *arts, int idx);
+//Aqui eh realizada a busca binaria, portanto o vetor deve estar ordenado em ordem crencente de id para
+//funcionar. Retorna o indice do artista caso o encontre ou retorna NOT_FOUND caso nao o encontre
+int AcharIndexArtPeloIdB(tArtistas* arts, char* id);
 
-void MudarArtista(tArtistas *arts, tArtista *art, int idx);
-
-void ImprimirArtistas(tArtistas *arts, int idx);
-
-void AdicionarQtdArt(tArtistas *arts, int qtd);
-
-void RealocarArtistas(tArtistas *arts, int qtdA);
-
-void LiberarVetorArts(tArtistas **arts);
+tArtista* RetornaArtistaPonteiro(tArtistas* arts, int idx);
 
 void GeraRelatorioArtistas(tArtistas* arts, char* caminho);
 

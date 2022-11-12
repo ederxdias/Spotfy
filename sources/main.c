@@ -1,6 +1,6 @@
 
 #include "artistas.h"
-#include "musicaVet.h"
+#include "musicas.h"
 #include "playlists.h"
 #include "peso.h"
 
@@ -16,29 +16,38 @@ int main(int argc, char *argv[]) {
     sprintf(edr,"./data_tests/%s", argv[2]);
     */
 
-    tArtistas *arts = ListarArtistas("data_tests/artists_2.csv");
+    tArtistas *arts = ListarArtistas("data_tests/artists_3480.csv");
 
-    tMusicaVet *mscs = LeMusicasDoArquivo("data_tests/tracks_2.csv",arts);
+    tMusicas *mscs = LeMusicasDoArquivo("data_tests/tracks_3480.csv",arts);
     //BuscarMusicasPeloNome(mscs, "One Time");
 
     tPlaylists* plays = CriarListaPlay();
     
     CriaPlayslistNaLista(plays, "Teste");
-    //ListaPlaylists(plays);
+    ListaPlaylists(plays);
 
     AdicionaMusicaEmUmaPlayIdx(plays, 0, mscs, 5);
 
+    SalvarPlaylistsEmBinario(plays, "plays.bin");
+
+    LiberarPlaylists(&plays);
+
+    plays = CarregarPlaylistsDeBinario("plays.bin");
+
     ListarMusica(mscs, 5);
 
-    KmusicasRecomendadasDeUmaPlay(plays, 0, mscs, -1);
+    printf("Kmusicas\n");
+    KmusicasRecomendadasDeUmaPlay(plays, 0, mscs, 5);
 
-    //GeraRelatorioArtistas(arts, "retorioArt.txt");
-    //GeraRelatorioMusicas(mscs, "relatorioMscs.txt");
+    printf("Gerando relatorio art\n");
+    GeraRelatorioArtistas(arts, "retorioArt.txt");
+    printf("Gerando relatorio mscs\n");
+    GeraRelatorioMusicas(mscs, "relatorioMscs.txt");
 
     LiberaVetorMusicas(&mscs);
     LiberarArtistas(&arts);
     LiberarPlaylists(&plays);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 

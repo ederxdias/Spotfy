@@ -19,15 +19,16 @@ void LiberaMatrizDeChar(char **m, int qtdLinha, int qtdChars);
 
 void AdicionarArtistasDaMusica(tMusica *msc, tArtistas *arts);
 
-char *RetIdM(tMusica *msc);
+char *RetornaIdMusica(tMusica *msc);
 
+//Retorna a quantidade de artistas que produziram a musica
 int RetQtdArtsM(tMusica *msc);
 
 void ConfiguraMusicaNaPlaylist(tMusica *msc);
 
 void ImprimirMusica(tMusica *msc);
 
-char *RetornarNomeMusic(tMusica *msc);
+char *RetornaNomeMusic(tMusica *msc);
 
 char** RetornaNomeDosArtistasDaM(tMusica *msc);
 
@@ -35,6 +36,7 @@ void ExecutarMusica(tMusica* msc);
 
 void ImprimirMusicaArquivo(tMusica *msc, FILE * f);
 
+//Retorna a quantidade de playlist que a musica esta inserida
 int RetQtdPlayMusica(tMusica* msc);
 
 tPropiedades* RetornaPropriedadesMusica(tMusica* msc);

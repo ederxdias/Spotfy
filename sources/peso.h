@@ -18,4 +18,8 @@ void OrdenaPeloPesoDecrescente(tPeso** p, int tam);
 
 void OrdenaPeloPesoCrescente(tPeso** p, int tam);
 
+int EhPeso1MaiorQePeso2(const void* p1, const void* p2);
+
+int EhPeso1MenorQePeso2(const void* p1, const void* p2);
+
 #endif
