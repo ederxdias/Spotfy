@@ -44,7 +44,7 @@ tMusicas* LeMusicasDoArquivo(char* caminho, tArtistas *arts) {
       
     fclose(f);
 
-    printf("Operacao: Leitura de Musicas e Conexao Musica/Artista Finalizada!\n");
+    printf("Operacao: Leitura de Musicas e Conexao Musica/Artista Finalizada!\n\n");
  
     return v;
 }
@@ -75,9 +75,9 @@ void LiberaVetorMusicas(tMusicas **vet){
     }
 }
 
-void ListarMusica(tMusicas *mscs, int idx){
+void ListarMusicaPeloIndice(tMusicas *mscs, int idx){
     if(idx >= mscs->qtdM || idx < 0) {
-        printf("\nO indice %d nao corresponde a nenhuma musica!\n", idx);
+        printf("\nO indice %d nao corresponde a nenhuma musica!\n\n", idx);
         return;
     }
     ImprimirMusica(mscs->musicas[idx]);
@@ -85,7 +85,7 @@ void ListarMusica(tMusicas *mscs, int idx){
 
 tMusica* RetMusicaPeloIdx(tMusicas *mscs, int idx) {
     if(idx >= mscs->qtdM || idx < 0){
-        printf("\nO indice %d nao corresponde a nenhuma musica!\n", idx);
+        printf("O indice %d nao corresponde a nenhuma musica!\n\n", idx);
         return NULL;
     }
     return mscs->musicas[idx];
@@ -119,7 +119,7 @@ void BuscarMusicasPeloNome(tMusicas *mscs, char *busca){
     }
 
     if(!eMusica){
-        printf("Nenhuma música foi encontrada!\n\n");
+        printf("Nenhuma musica foi encontrada!\n\n");
     }
 }
 
@@ -134,10 +134,13 @@ void ExecutaMusicaPeloIdx(tMusicas* mscs, int idx) {
 
 void GeraRelatorioMusicas(tMusicas* mscs, char* caminho) {
     int i = 0, flag = 0;
-    FILE * f = fopen(caminho, "w");
+    char path[1000];
+    strcpy(path, caminho);
+    strcat(path, "relatorioMusicas.txt");
+    FILE * f = fopen(path, "w");
 
     if(f == NULL) {
-        printf("Erro ao abrir caminho para relatorio de artistas: %s\n\n", caminho);
+        printf("Erro ao abrir caminho para relatorio de musicas: %s\n\n", path);
         return;
     }
     //rMp eh a relacao musica e a quatidade de playlist que a musica foi adicionada

@@ -14,6 +14,7 @@ void LiberarPlaylists(tPlaylists **p);
 
 void SalvarPlaylistsEmBinario(tPlaylists *p, char *caminho);
 
+//Caso nao consiga encontrar o arquivo retorna NULL
 tPlaylists *CarregarPlaylistsDeBinario(char *caminho);
 
 void ListaPlaylists(tPlaylists* plays);
