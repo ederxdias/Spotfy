@@ -73,7 +73,7 @@ tPlaylists *CarregarPlaylistsDeBinario(char *caminho) {
     f = fopen(caminho, "rb");
 
     if(f == NULL) {
-        printf("\nCarregarPlaylistsDeBinario: Save nao encontrado.\n\n");
+        printf("\nCarregarPlaylistsDeBinario: Save Não Encontrado!\n");
         return NULL;
     }
 
@@ -98,7 +98,7 @@ void ListaPlaylists(tPlaylists* plays) {
     int i = 0;
 
     if(plays->qtdp == 0){
-        printf("Nenhuma playlist foi criada ainda!\n\n");
+        printf("Nenhuma playlist foi criada ainda!\n");
         return;
     }
 
@@ -136,7 +136,7 @@ void ListarUmaDasPlaylists(tPlaylists* plays, tMusicas* mscs, int idxPlay) {
 }
 
 void KmusicasRecomendadasDeUmaPlay(tPlaylists* plays, int idxPlay, tMusicas* mscs, int k) {
-    if(plays->qtdp < idxPlay || idxPlay < 0) {
+    if(plays->qtdp < idxPlay || idxPlay < 0 || plays->qtdp == 0) {
         printf("Essa playlist nao foi encontrada!\n\n");
         return;
     }

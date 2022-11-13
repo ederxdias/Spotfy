@@ -56,7 +56,7 @@ tArtistas* ListarArtistas(char* caminho){
     exit(EXIT_FAILURE);
   }
 
-    printf("Leitura de Artistas Iniciada!\n");
+    printf("Operacao: Leitura de Artistas Iniciada!\n");
 
     tArtistas *arts = CriarArtistas();
     tArtista *art;
@@ -70,13 +70,11 @@ tArtistas* ListarArtistas(char* caminho){
     }
     fclose(fa);
 
-    printf("Leitura de Artistas Finalizada!\n\n");
+    printf("Operacao: Leitura de Artistas Finalizada!\n\n");
 
-    printf("Ordenacao de Artistas Iniciada!\n");
+    printf("Operacao: Ordenacao de Artistas Iniciada!\n");
     OrdenaArrArtistasCrescenteId(arts->art, arts->qtda);
-    printf("Ordenacao de Artistas Finalizada!\n");
-
-    system("clear");
+    printf("Operacao: Ordenacao de Artistas Finalizada!\n\n");
 
     return arts;
 }
@@ -124,10 +122,13 @@ tArtista* RetornaArtistaPonteiro(tArtistas* arts, int idx){
 
 void GeraRelatorioArtistas(tArtistas* arts, char* caminho) {
     int i = 0, flag = 0;
-    FILE * f = fopen(caminho, "w");
+    char path[1000];
+    strcpy(path, caminho);
+    strcat(path, "relatorioArtistas.txt");
+    FILE * f = fopen(path, "w");
 
     if(f == NULL) {
-        printf("Erro ao abrir caminho para relatorio de artistas: %s\n\n", caminho);
+        printf("Erro ao abrir caminho para relatorio de artistas: %s\n\n", path);
         return;
     }
     //rAp eh a relacao artista e a quatidade de playlist que as musicas dele foram adicionadas

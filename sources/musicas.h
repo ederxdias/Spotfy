@@ -14,7 +14,7 @@ void AdicionaMusicaAoVetMusicas(tMusicas *v, tMusica* m);
 
 void LiberaVetorMusicas(tMusicas **vet);
 
-void ListarMusica(tMusicas *mscs, int idx);
+void ListarMusicaPeloIndice(tMusicas *mscs, int idx);
 
 tMusica* RetMusicaPeloIdx(tMusicas *mscs, int idx);
 

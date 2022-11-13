@@ -17,7 +17,7 @@ void LiberarPlaylist(tPlaylist **p);
 void SalvarPlaylistEmBinario(tPlaylist *p, FILE * f);
 
 /* O arquivo onde sera carregada a Playlist deve ser passado aberto 
- * no formato de leitura binaria */
+ * no formato de leitura binaria*/
 tPlaylist *CarregaPlaylistDeBinario(FILE * f);
 
 char *RetornaNomeDaPlaylsit(tPlaylist* play);

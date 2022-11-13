@@ -34,3 +34,6 @@ $(PROG_NAME): $(OBJS)
 clean:
 	@$(RM) -f $(OBJS) $(PROG_NAME)
 	@$(RMDIR) $(OBJS_FILE)
+
+clean2:
+	@$(RM) -f ./dataSave/relatorioArtistas.txt ./dataSave/relatorioMusicas.txt ./dataSave/playlists.bin

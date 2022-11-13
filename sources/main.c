@@ -1,53 +1,75 @@
-
-#include "artistas.h"
-#include "musicas.h"
-#include "playlists.h"
-#include "peso.h"
-
+#include "interface.h"
 
 int main(int argc, char *argv[]) {
-    /*char edr[1000];
-    if (argc <= 2) {
-       printf("Favor informar o diretorio! de entrada\n");
-        return 1;
+    if(argc < 3 && 0) {
+        printf("É necessário informar o caminho do arquivo de artistas e o de musicas, repectivamente!\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    tArtistas* arts = ListarArtistas(argv[1]);
+    tMusicas* mscs = LeMusicasDoArquivo(argv[2], arts);
+
+    tPlaylists* plays = CarregarPlaylistsDeBinario("dataSave/playlists.bin");
+
+    if(plays == NULL) {
+        printf("Inicializando Uma Lista De Playlists Vazia!\n\n");
+        plays = CriarListaPlay();
+    }else{
+        printf("Operacao: Leitura De Playlists Concluida!\n\n");
     }
 
-    sprintf(edr, "./data_tests/%s", argv[1]);
-    sprintf(edr,"./data_tests/%s", argv[2]);
-    */
+    int opcao = 0;
 
-    tArtistas *arts = ListarArtistas("data_tests/artists_3480.csv");
+    ImprimeMenu();
+    while(scanf("%d%*c", &opcao) == 1 && opcao != SAIR) {
+        switch (opcao){
+            case BUSCA_MUSICAS:
+                BuscaMusicasInter(mscs);
+                break;
+            
+            case LISTA_MUSICA:
+                ListaMusicaPeloIdInter(mscs);
+                break;
+            
+            case EXECUTA_MUSICA:
+                ExecutaMusicaInter(mscs);
+                break;
+            
+            case CRIAR_PLAYLIST:
+                CriaPlaylistInter(plays);
+                break;
+            
+            case LISTA_PLAYLISTS:
+                ListaPlaylistsInter(plays);
+                break;
+            
+            case LISTAR_UMA_PLAYLIST:
+                ListarUmaPlayInter(plays, mscs);
+                break;
+            
+            case ADICIONAR_MUSICA_PLAYLIST:
+                AdicionarMusicaPlayInter(plays, mscs);
+                break;
+            
+            case RECOMENDAR_MUSICAS:
+                RecomendaKMusicsInter(plays, mscs);
+                break;
+            
+            case GERAR_RELATORIO:
+                GerarRelatoriosInter(arts, mscs, "./dataSave/");
+                break;
+            
+            default:
+                break;
+        }
+        ImprimeMenu();
+    }
 
-    tMusicas *mscs = LeMusicasDoArquivo("data_tests/tracks_3480.csv",arts);
-    //BuscarMusicasPeloNome(mscs, "One Time");
-
-    tPlaylists* plays = CriarListaPlay();
-    
-    CriaPlayslistNaLista(plays, "Teste");
-    ListaPlaylists(plays);
-
-    AdicionaMusicaEmUmaPlayIdx(plays, 0, mscs, 5);
-
-    SalvarPlaylistsEmBinario(plays, "plays.bin");
+    SalvarPlaylistsEmBinario(plays, "dataSave/playlists.bin");
 
     LiberarPlaylists(&plays);
-
-    plays = CarregarPlaylistsDeBinario("plays.bin");
-
-    ListarMusica(mscs, 5);
-
-    printf("Kmusicas\n");
-    KmusicasRecomendadasDeUmaPlay(plays, 0, mscs, 5);
-
-    printf("Gerando relatorio art\n");
-    GeraRelatorioArtistas(arts, "retorioArt.txt");
-    printf("Gerando relatorio mscs\n");
-    GeraRelatorioMusicas(mscs, "relatorioMscs.txt");
-
-    LiberaVetorMusicas(&mscs);
     LiberarArtistas(&arts);
-    LiberarPlaylists(&plays);
+    LiberaVetorMusicas(&mscs);
 
     return EXIT_SUCCESS;
 }
-
