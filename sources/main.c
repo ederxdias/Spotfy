@@ -1,7 +1,7 @@
 #include "interface.h"
 
 int main(int argc, char *argv[]) {
-    if(argc < 3 && 0) {
+    if(argc < 3) {
         printf("É necessário informar o caminho do arquivo de artistas e o de musicas, repectivamente!\n");
         exit(EXIT_FAILURE);
     }

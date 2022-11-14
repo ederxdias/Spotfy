@@ -52,7 +52,7 @@ tArtistas* ListarArtistas(char* caminho){
     FILE * fa = fopen(caminho,"r");
     if (fa == NULL)
   {
-    printf("Erro abertura do arquivo!!\n\n");
+    printf("Listar Artistas: Erro abertura do arquivo!!\n\n");
     exit(EXIT_FAILURE);
   }
 
