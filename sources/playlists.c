@@ -53,7 +53,7 @@ void SalvarPlaylistsEmBinario(tPlaylists *p, char *caminho){
 
     if(f == NULL) {
         printf("SalvarPlaylistsEmBinario: Erro na abertura de arquivo binario.\n\n");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
     int i = 0;
 
@@ -142,4 +142,12 @@ void KmusicasRecomendadasDeUmaPlay(tPlaylists* plays, int idxPlay, tMusicas* msc
     }
 
     RecomendaKmusicasParecidas(plays->play[idxPlay], mscs, k);
+}
+
+void RelacionaPlaylistSalvasComMusicas(tPlaylists* plays, tMusicas* mscs) {
+    int i = 0;
+
+    for(i = 0; i < plays->qtdp; i++) {
+        RelacionaPlaylistSalvaComMusicas(plays->play[i], mscs);
+    }
 }

@@ -117,6 +117,9 @@ int AcharIndexArtPeloIdB(tArtistas* arts, char* id) {
 }
 
 tArtista* RetornaArtistaPonteiro(tArtistas* arts, int idx){
+    if(idx >= arts->qtda || idx < 0 || arts->qtda == 0) {
+        return NULL;
+    }
     return arts->art[idx];
 }
 
@@ -142,6 +145,7 @@ void GeraRelatorioArtistas(tArtistas* arts, char* caminho) {
 
     for(i = 0; i < arts->qtda; i++) {
         if(RetornaPeso(rAp[i]) > 0.0) {
+            fprintf(f, "%d- ", i + 1);
             ImprimeArtistaArquivo(arts->art[RetornaItem(rAp[i])], f);
             flag++;
         }

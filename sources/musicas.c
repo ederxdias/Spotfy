@@ -154,6 +154,7 @@ void GeraRelatorioMusicas(tMusicas* mscs, char* caminho) {
 
     for(i = 0; i < mscs->qtdM; i++) {
         if(RetornaPeso(rMp[i]) > 0.0) {
+            fprintf(f, "%d- ", i + 1);
             ImprimirMusicaArquivo(mscs->musicas[RetornaItem(rMp[i])], f);
             flag++;
         }
