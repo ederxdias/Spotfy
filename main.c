@@ -15,6 +15,8 @@ int main(int argc, char *argv[]) {
         printf("Inicializando Uma Lista De Playlists Vazia!\n\n");
         plays = CriarListaPlay();
     }else{
+        printf("Configurando Playlists Anteriores Com As Musicas e Artistas!\n");
+        RelacionaPlaylistSalvasComMusicas(plays, mscs);
         printf("Operacao: Leitura De Playlists Concluida!\n\n");
     }
 

@@ -212,6 +212,9 @@ int RetQtdArtsM(tMusica *msc) {
 }
 
 void ConfiguraMusicaNaPlaylist(tMusica *msc) {
+    if(msc == NULL) {
+        return;
+    }
     int i = 0;
 
     for(i = 0; i < msc->qtdA; i++){

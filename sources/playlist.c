@@ -118,7 +118,7 @@ void ListarPlaylist(tPlaylist* play, tMusicas* mscs) {
         printf("A playlist nao possui nenhuma musica!\n\n");
         return;
     }
-    printf("Nome da musica | Indice da musica\n");
+    printf("\n0- Nome da musica | Indice da musica\n");
 
     tMusica *msc = NULL;
 
@@ -195,10 +195,11 @@ void RecomendaKmusicasParecidas(tPlaylist* play, tMusicas* mscs, int k) {
     double dist = 0;
     tPropiedades* proPlay = MediaDasPropriedadesPlaylist(play, mscs);
 
-    //mProx serve para guardar o id das musicas e a proximidade delas com a playlist
+    //mProx serve para guardar o id das musicas e a proximidade(peso) delas com a playlist
     tPeso** mProx = (tPeso**)malloc(sizeof(tPeso*)*RetQtdMusicasNaLista(mscs));
 
     tMusica* msc = NULL;
+    //Armazena os indices(i) das musicas e a proximidade(dist) que elas tem com a playlist
     for(i = 0; i < RetQtdMusicasNaLista(mscs); i++) {
         msc = RetMusicaPeloIdx(mscs, i);
         dist = DistanciaEntrePropriedades(proPlay, RetornaPropriedadesMusica(msc));
@@ -225,4 +226,12 @@ void RecomendaKmusicasParecidas(tPlaylist* play, tMusicas* mscs, int k) {
     mProx = NULL;
 
     LiberaPropiedades(&proPlay);
+}
+
+void RelacionaPlaylistSalvaComMusicas(tPlaylist* play, tMusicas* mscs) {
+    int i = 0;
+
+    for(i = 0; i < play->qtdM; i++) {
+        ConfiguraMusicaNaPlaylist(RetMusicaPeloIdx(mscs, play->mscs[i]));
+    }
 }

@@ -14,7 +14,8 @@ typedef struct tArtista tArtista;
 
 tArtista *CriarArtista(char *id, double seg, char *gen, char *nA, int popu);
 
-//Le o artista de um arquivo que deve estar aberto em modo leitura
+//Le o artista de um arquivo que deve estar aberto em modo leitura, caso o padrao da linha encontrada
+//nao for o esperado a linha é ignorada e retorna NULL
 tArtista *LeArtista(FILE *arq);
 
 void LiberaArtista(tArtista **p);
