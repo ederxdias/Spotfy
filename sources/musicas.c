@@ -158,6 +158,11 @@ void GeraRelatorioMusicas(tMusicas* mscs, char* caminho) {
             ImprimirMusicaArquivo(mscs->musicas[RetornaItem(rMp[i])], f);
             flag++;
         }
+        else if(RetornaPeso(rMp[i]) == 0.0) {
+            //Caso encontre uma musica que nao esta em playlist pode parar, pois 
+            //as proximas tambem nao estarao
+            break;
+        }
     }
 
     if(!flag){

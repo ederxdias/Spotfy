@@ -149,6 +149,11 @@ void GeraRelatorioArtistas(tArtistas* arts, char* caminho) {
             ImprimeArtistaArquivo(arts->art[RetornaItem(rAp[i])], f);
             flag++;
         }
+        else if(RetornaPeso(rAp[i]) == 0.0) {
+            //Caso encontre artistas que nao tem musicas em playlist ja pode parar de imprimir, pois
+            //os proximos tambem nao terao musicas em playlist
+            break;
+        }
     }
 
     if(!flag){

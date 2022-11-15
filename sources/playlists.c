@@ -73,7 +73,7 @@ tPlaylists *CarregarPlaylistsDeBinario(char *caminho) {
     f = fopen(caminho, "rb");
 
     if(f == NULL) {
-        printf("\nCarregarPlaylistsDeBinario: Save Não Encontrado!\n");
+        printf("CarregarPlaylistsDeBinario: Save Não Encontrado!\n");
         return NULL;
     }
 
