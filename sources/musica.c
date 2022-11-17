@@ -2,6 +2,7 @@
 
 #define LINHAS_MAX 128
 #define QTD_CHARS_MAX 512
+#define SPOTIFY_LINK_MUSIC "firefox https://open.spotify.com/track/"
 
 struct tMusica 
 {
@@ -262,7 +263,7 @@ char** RetornaNomeDosArtistasDaM(tMusica *msc){
 }
 
 void ExecutarMusica(tMusica* msc) {
-    char search[128] = "firefox https://open.spotify.com/track/";
+    char search[512] = SPOTIFY_LINK_MUSIC;
 
     strcat(search, RetornaIdMusica(msc));
 

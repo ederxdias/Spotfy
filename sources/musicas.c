@@ -35,6 +35,7 @@ tMusicas* LeMusicasDoArquivo(char* caminho, tArtistas *arts) {
     while(!feof(f)) {
         musica = LeMusicaDoArquivo(f);
 
+        //If que ignora musicas fora do padrao de formatacao
         if(musica != NULL){
             AdicionarArtistasDaMusica(musica,arts);
             AdicionaMusicaAoVetMusicas(v, musica);
@@ -77,7 +78,7 @@ void LiberaVetorMusicas(tMusicas **vet){
 
 void ListarMusicaPeloIndice(tMusicas *mscs, int idx){
     if(idx >= mscs->qtdM || idx < 0) {
-        printf("\nO indice %d nao corresponde a nenhuma musica!\n\n", idx);
+        printf("O indice %d nao corresponde a nenhuma musica!\n\n", idx);
         return;
     }
     ImprimirMusica(mscs->musicas[idx]);
@@ -85,7 +86,6 @@ void ListarMusicaPeloIndice(tMusicas *mscs, int idx){
 
 tMusica* RetMusicaPeloIdx(tMusicas *mscs, int idx) {
     if(idx >= mscs->qtdM || idx < 0){
-        printf("O indice %d nao corresponde a nenhuma musica!\n\n", idx);
         return NULL;
     }
     return mscs->musicas[idx];
@@ -94,7 +94,7 @@ tMusica* RetMusicaPeloIdx(tMusicas *mscs, int idx) {
 void BuscarMusicasPeloNome(tMusicas *mscs, char *busca){
     int eMusica = 0;
     for(int i = 0; i < mscs->qtdM; i++){
-        if(strcmp(busca, RetornaNomeMusic(mscs->musicas[i])) == 0){
+        if(strstr(RetornaNomeMusic(mscs->musicas[i]), busca) != NULL){
             eMusica++;
             printf("Indice da musica: %d\n", i);
             printf("Id da musica: %s\n", RetornaIdMusica(mscs->musicas[i]));

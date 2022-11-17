@@ -40,6 +40,7 @@ void AdicionarMusicaPlaylist(tPlaylist *play, tMusicas* mscs, int idx_msc){
         play->qtdM++;
     }
     else{
+        printf("Musica com esse nncice não existe!");
         printf("Falha na adicao da musica!\n\n");
     }
 }
@@ -202,8 +203,11 @@ void RecomendaKmusicasParecidas(tPlaylist* play, tMusicas* mscs, int k) {
     //Armazena os indices(i) das musicas e a proximidade(dist) que elas tem com a playlist
     for(i = 0; i < RetQtdMusicasNaLista(mscs); i++) {
         msc = RetMusicaPeloIdx(mscs, i);
-        dist = DistanciaEntrePropriedades(proPlay, RetornaPropriedadesMusica(msc));
-        
+        //If para caso a musica da playlist atual nao esteja no banco de dados atual
+        if(msc != NULL) {
+            dist = DistanciaEntrePropriedades(proPlay, RetornaPropriedadesMusica(msc));
+        }
+
         mProx[i] = CriaPeso(i, dist);
     }
 
@@ -230,8 +234,14 @@ void RecomendaKmusicasParecidas(tPlaylist* play, tMusicas* mscs, int k) {
 
 void RelacionaPlaylistSalvaComMusicas(tPlaylist* play, tMusicas* mscs) {
     int i = 0;
+    tMusica* msc = NULL;
 
     for(i = 0; i < play->qtdM; i++) {
-        ConfiguraMusicaNaPlaylist(RetMusicaPeloIdx(mscs, play->mscs[i]));
+        msc = RetMusicaPeloIdx(mscs, play->mscs[i]);
+        
+        //Ignora indices de musicas maiores que o tamanho do banco de dados atual
+        if(msc != NULL) {
+            ConfiguraMusicaNaPlaylist(msc);
+        }
     }
 }

@@ -14,8 +14,8 @@ void ImprimeMenu() {
 
 void BuscaMusicasInter(tMusicas* mscs) {
     char nome[1000];
-    printf("\nDIGIE O NOME QUE DESEJA BUSCAR: ");
-    scanf("%[^\n]%*c", nome);
+    printf("\nDIGIE A PALAVRA CHAVE QUE DESEJA BUSCAR: ");
+    scanf("%s%*c", nome);
     printf("\nBuscando Musicas:\n\n");
     BuscarMusicasPeloNome(mscs, nome);
     printf("Busca Concluída!\n\n");

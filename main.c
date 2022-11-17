@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
     int opcao = 0;
 
     ImprimeMenu();
+
     while(scanf("%d%*c", &opcao) == 1 && opcao != SAIR) {
         switch (opcao){
             case BUSCA_MUSICAS:
@@ -62,8 +63,10 @@ int main(int argc, char *argv[]) {
                 break;
             
             default:
+                printf("\nOPÇÃO NÃO ENCONTRADA!\n\n");
                 break;
         }
+        
         ImprimeMenu();
     }
 

@@ -62,10 +62,9 @@ tArtistas* ListarArtistas(char* caminho){
     tArtista *art;
     while(!feof(fa)){
          art = LeArtista(fa);
+        //If que ignora artistas fora do padrao de formatacao
         if (art != NULL){
             AdicionarArtistas(arts, art);
-        }else{
-            printf("Alocação desse um ponteiro de artista do arquivo falhou!\n");
         }
     }
     fclose(fa);

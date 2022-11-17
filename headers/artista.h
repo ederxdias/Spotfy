@@ -45,7 +45,7 @@ void IncrementaQtdPlaylistArtista(tArtista *art);
 
 void ImprimeArtistaArquivo(tArtista* art, FILE * f);
 
-int EhIdArt1MaiorIdArt2(const void* art1, const void* art2);
+int EhIdArt1MaiorIdArt2(tArtista* art1, tArtista* art2);
 
 void OrdenaArrArtistasCrescenteId(tArtista* *art, int tam);
 
