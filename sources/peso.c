@@ -1,7 +1,5 @@
 #include "peso.h"
 
-typedef int (*fptrComp)(const void*, const void*);
-
 struct tPeso{
     int item;
     double peso;
