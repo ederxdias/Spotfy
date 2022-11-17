@@ -1,7 +1,5 @@
 #include "artista.h"
 
-typedef int (*fptrComp)(const void*, const void*);
-
 struct tArtista
 {
     char *id; // id do artista na base do Spotify.
@@ -142,8 +140,8 @@ void ImprimeArtistaArquivo(tArtista* art, FILE * f) {
     fprintf(f, "Genero: %s\n",art->gen);
 }
 
-int EhIdArt1MaiorIdArt2(const void* art1, const void* art2) {
-    if(strcmp((*(tArtista**)art1)->id, (*(tArtista**)art2)->id) > 0){
+int EhIdArt1MaiorIdArt2(tArtista* art1, tArtista* art2) {
+    if(strcmp(art1->id, art2->id) > 0){
         return 1;
     }
     else
@@ -163,6 +161,16 @@ int RelacionaId1ComId2(char* id1, char* id2) {
 }
 
 void OrdenaArrArtistasCrescenteId(tArtista* *art, int tam) {
-    fptrComp compara = EhIdArt1MaiorIdArt2;
-    qsort(art, tam, sizeof(*art), compara);
+    int i = 0, j = 0;
+    tArtista* key = NULL;
+
+    for(i = 0; i < tam; i++) {
+        key = art[i];
+        j = i - 1;
+        while(j >= 0 && EhIdArt1MaiorIdArt2(art[j], key)){
+            art[j+1] = art[j];
+            j--;
+        }  
+        art[j+1] = key;     
+    }
 }

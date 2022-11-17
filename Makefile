@@ -22,8 +22,10 @@ DATA_SAVE = dataSave
 #Flags de compilacao
 FLAGS = -Wall -g -c
 
+LIBS = -lm
+
 #Configurando as variaveis
-LIB_NAME := $(addprefix lib, $(addsuffix .a, $(LIB_NAME)))
+LIB_ARQ := $(addprefix lib, $(addsuffix .a, $(LIB_NAME)))
 
 SOURCES_C := $(wildcard ./$(SOURCE_FILE)/*.c)
 
@@ -32,9 +34,13 @@ SOURCES_H := $(wildcard ./$(HEADER_FILE)/*.h)
 OBJS := $(subst .c,.o,$(subst $(SOURCE_FILE),$(OBJS_FILE),$(SOURCES_C)))
 
 #Inicio dos comandos make
-all: ./$(OBJS_FILE) ./$(DATA_SAVE) $(LIB_NAME) COMANDOS
+all: ./$(OBJS_FILE) ./$(DATA_SAVE) $(PROG_NAME) COMANDOS
 
-$(LIB_NAME): $(OBJS)
+$(PROG_NAME): $(PROG_NAME).c $(LIB_ARQ)
+	$(CC) -o $@ $(PROG_NAME).c -L. -l$(LIB_NAME) -I ./$(HEADER_FILE)/ $(LIBS)
+	@echo "  Compilado Com Sucesso!\n"
+
+$(LIB_ARQ): $(OBJS)
 	@ar crs $@ $(OBJS)
 
 ./$(OBJS_FILE)/%.o: ./$(SOURCE_FILE)/%.c ./$(HEADER_FILE)/%.h
@@ -46,9 +52,7 @@ $(LIB_NAME): $(OBJS)
 ./$(DATA_SAVE):
 	@$(MKDIR) $(DATA_SAVE)
 
-COMANDOS: $(LIB_NAME)
-	@echo "Comando de compilação: "
-	@echo "  gcc -o main main.c -L. -lspotify -I ./headers/ -lm \n"
+COMANDOS: $(PROG_NAME)
 	@echo "Comando para a execução do programa: "
 	@echo "  ./main caminhoArquivoArtistas caminhoArquivoMusicas \n"
 	@echo "Mais informações:"
@@ -56,7 +60,7 @@ COMANDOS: $(LIB_NAME)
 	@echo "  Use o comando >make clean< para apagar tudo o que foi feito"
 
 clean:
-	@$(RM) -f $(OBJS) $(PROG_NAME) $(LIB_NAME)
+	@$(RM) -f $(OBJS) $(PROG_NAME) $(LIB_ARQ)
 	@$(RMDIR) $(OBJS_FILE)
 	@$(RM) -f ./$(DATA_SAVE)/relatorioArtistas.txt ./$(DATA_SAVE)/relatorioMusicas.txt ./$(DATA_SAVE)/playlists.bin
 	@$(RMDIR) $(DATA_SAVE)
