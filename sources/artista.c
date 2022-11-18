@@ -15,7 +15,7 @@ tArtista *CriarArtista(char *id, double seg, char *gen, char *nA, int popu){
     tArtista *art =(tArtista*) malloc(sizeof(*art));
     if(art == NULL){
         printf("Falha na alocação do ponteiro de artista!\n\n");
-        exit(-1);
+        exit(EXIT_FAILURE);
     }
     art->id = (char*)calloc((strlen(id)+1), sizeof(char));
     strncpy(art->id, id, strlen(id));

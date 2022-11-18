@@ -14,7 +14,7 @@ tArtistas* CriarArtistas(){
         exit(-1);
     }
     arts->qtda=0;
-    arts->tamVet = 15;
+    arts->tamVet = 32;
     arts->art =(tArtista **) malloc(sizeof(tArtista *)*arts->tamVet);
     return arts;
 }
