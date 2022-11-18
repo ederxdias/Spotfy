@@ -6,38 +6,93 @@
 
 typedef struct tPlaylists tPlaylists;
 
+/**
+ * @brief Cria um tPlaylists* alocado dinamicamente
+ * 
+ * @return tPlaylists* 
+ */
 tPlaylists *CriarListaPlay();
 
+/**
+ * @brief Adiciona uma playlist(tPlaylist*) a uma lista de playlists(tPlaylists*)
+ * 
+ * @param plays: tPlaylists* 
+ * @param play: tPlaylist* 
+ */
 void AdicionarPlaylist(tPlaylists *plays, tPlaylist *play);
 
+/**
+ * @brief Libera o tPlaylists*
+ * 
+ * @param p: tPlaylists** que representa o caminho na tPlaylists* 
+ */
 void LiberarPlaylists(tPlaylists **p);
 
-//Salva a playlist no caminho passado, o caminho deve conter tambem o nome do arquivo que sera
-//salvo ex: ./pasta/arquivo.bin, caso nao consiga criar o arquivo finaliza o programa 
+/**
+ * @brief Salva o tPlaylists* em um arquivo binario
+ * 
+ * @param p: tPlaylist* 
+ * @param caminho: uma string que representa o caminho do arquivo binario que o tPlaylists* sera salvo 
+ */
 void SalvarPlaylistsEmBinario(tPlaylists *p, char *caminho);
 
-//Caso nao consiga encontrar o arquivo retorna NULL
+/**
+ * @brief Carrega o tPlaylists* de um arquivo binario, caso nao consiga ler retorna NULL
+ * 
+ * @param caminho: uma string que representa o caminho do arquivo binario que o tPlaylists* sera carregado
+ */
 tPlaylists *CarregarPlaylistsDeBinario(char *caminho);
 
-//Mostra os nomes e os indices das playlists salvas no tPlaylists* passado
+/**
+ * @brief Mostra os nomes e os indices das playlists salvas no tPlaylists* passado
+ * 
+ * @param plays: tPlaylists* 
+ */
 void ListaPlaylists(tPlaylists* plays);
 
-//Adiciona uma musica a uma playlist dentro do tPlaylists* passado, necessita do indice da playlist(idxPlay)
-//do indice da musica(idxMusica) e do armazenamento de musicas(tMusicas*)
+/**
+ * @brief Adiciona uma musica a uma playlist dentro do tPlaylists* passado
+ * 
+ * @param plays: tPlaylists*   
+ * @param idxPlay: int indice da playlist(tPlaylist*) no tPlaylists* 
+ * @param mscs: tMusicas*  
+ * @param idxMusica: int indice da musica(tMusica*) no tMusicas* 
+ */
 void AdicionaMusicaEmUmaPlayIdx(tPlaylists* plays, int idxPlay, tMusicas* mscs, int idxMusica);
 
-//Cria diretamente uma playlist no tPlaylists* passado, necessita de uma strig que corresponde ao nome
-//da playlist a ser criada
+/**
+ * @brief Cria diretamente uma playlist no tPlaylists* passado
+ * 
+ * @param plays: tPlaylists* 
+ * @param nomePlay: uma strig que representa o nome da playlist(tPlaylist*) a ser criado 
+ */
 void CriaPlayslistNaLista(tPlaylists* plays, char* nomePlay);
 
-//Imprime informaçoes da playlist que se encontra no tPlaylists* passado
-//e esta relacionada ao indice(idxPlay) requerido
+/**
+ * @brief Imprime informaçoes da playlist que se encontra no tPlaylists* passado
+ * 
+ * @param plays: tPlaylists* 
+ * @param mscs: tMusicas* banco de musicas 
+ * @param idxPlay: indice da playlist(tPlaylist*) que esta no tPlaylists* 
+ */
 void ListarUmaDasPlaylists(tPlaylists* plays, tMusicas* mscs, int idxPlay);
 
-//Busca as k(int) musicas parecidas a playlist indicada pelo indice(idxPlay) no tPlaylists*
+/**
+ * @brief Busca as k(int) musicas parecidas a playlist indicada pelo indice(idxPlay) no tPlaylists*
+ * 
+ * @param plays: tPlaylists* 
+ * @param idxPlay: int indice da playlist(tPlaylist*) no tPlaylists* 
+ * @param mscs: tMusicas* banco de dados de musicas 
+ * @param k: int que representa as quantidade de musicas recomendadas 
+ */
 void KmusicasRecomendadasDeUmaPlay(tPlaylists* plays, int idxPlay, tMusicas* mscs, int k);
 
-//Relacionar as musicas salvas em playlists anteriores as musicas atuais
+/**
+ * @brief Relacionar as musicas salvas em playlists anteriores as musicas atuais
+ * 
+ * @param plays: tPlaylists* 
+ * @param mscs: tMusicas* banco de dados 
+ */
 void RelacionaPlaylistSalvasComMusicas(tPlaylists* plays, tMusicas* mscs);
 
 #endif

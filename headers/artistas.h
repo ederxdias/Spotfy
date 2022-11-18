@@ -10,29 +10,71 @@
 
 typedef struct tArtistas tArtistas;
 
+/**
+ * @brief Cria um tArtistas* alocado dinamicamente na memoria
+ * 
+ * @return tArtistas* 
+ */
 tArtistas* CriarArtistas();
 
-//Adiciona um tArtista ao vetor dentro de tArtistas
+/**
+ * @brief Adiciona um tArtista* ao vetor dentro de tArtistas*
+ * 
+ * @param arts: tArtistas* que recebera o tArtista*
+ * @param art: tArtista* que sera colocado no tArtistas*
+ */
 void AdicionarArtistas(tArtistas* arts, tArtista* art);
 
+/**
+ * @brief Libera o tArtistas*
+ * 
+ * @param p: o tArtistas** que representa o caminho do tArtistas*
+ */
 void LiberarArtistas(tArtistas* *p);
 
-//Le os tArtista do arquivo que o caminho indica, e retorna um tArtistas com os tArtista lidos já
-//ordenados em ordem crescente de id
+/**
+ * @brief Le os tArtista do arquivo que o caminho indica, e retorna um tArtistas com os tArtista lidos já
+ * ordenados em ordem crescente de id
+ * 
+ * @param caminho: uma strig que representa o caminho do arquivo
+ * @return tArtistas*: um tArtitas* ordenado em ordem crescente de id
+ */
 tArtistas* ListarArtistas(char* caminho);
 
-//Retorna o indice do artista caso o encontre ou retorna NOT_FOUND caso nao o encontre
+/**
+ * @brief Procura o indice do tArtista* no tArtistas*
+ * 
+ * @param arts: tArtistas* para buscar o indice
+ * @param id: id do tArtista* a ser procurado 
+ * @return int: indice do artista caso o encontre ou retorna NOT_FOUND caso nao o encontre
+ */
 int AcharIndexArtPeloId(tArtistas* arts, char* id);
 
-//Aqui eh realizada a busca binaria, portanto o vetor deve estar ordenado em ordem crencente de id para
-//funcionar. Retorna o indice do artista caso o encontre ou retorna NOT_FOUND caso nao o encontre
+/**
+ * @brief Aqui eh realizada a busca binaria, portanto o vetor deve estar ordenado em ordem crencente de 
+ * id para funcionar
+ * 
+ * @param arts: tArtistas* para buscar o indice 
+ * @param id: id do tArtista* a ser procurado 
+ * @return int: indice do artista caso o encontre ou retorna NOT_FOUND caso nao o encontre
+ */
 int AcharIndexArtPeloIdB(tArtistas* arts, char* id);
 
-//Retorna o artista(tArtista*) correspondente ao indice(idx) passado, caso nao exista tal artista retorna NULL
+/**
+ * @brief Retorna o artista(tArtista*) correspondente ao indice(idx) passado
+ * 
+ * @param arts: tArtistas* que o tArtista* procurado se encontra
+ * @param idx: int que representa o indice do artista no tArtistas* 
+ * @return tArtista*: artista correspondente ao indice, caso nao exista tal artista retorna NULL 
+ */
 tArtista* RetornaArtistaPonteiro(tArtistas* arts, int idx);
 
-//Relatorio com o ranking dos artistas com mais musicas em playlist, caminho passado deve ser apenas do
-//diretorio que o arquivo sera salvo
+/**
+ * @brief Produz um relatorio com o ranking dos artistas com mais musicas em playlist em um arquivo
+ * 
+ * @param arts: tArtistas* que o ranking sera criado
+ * @param caminho: caminho passado deve ser apenas do diretorio que o arquivo sera salvo
+ */
 void GeraRelatorioArtistas(tArtistas* arts, char* caminho);
 
 #endif
