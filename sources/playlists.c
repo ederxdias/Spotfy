@@ -4,7 +4,7 @@ struct tPlaylists
 {
     tPlaylist **play;
     int tamVet;
-    int qtdp;
+    int qtdp; // Quantidade de playlists
 };
 
 tPlaylists *CriarListaPlay(){
